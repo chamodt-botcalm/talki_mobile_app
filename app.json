@@ -18,8 +18,7 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "package": "com.chamod_theekshana.talki_mobile_app"
     },
     "web": {
       "output": "static",
@@ -27,6 +26,14 @@
     },
     "plugins": [
       "expo-router",
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Inter_18pt-Regular.ttf"
+          ]
+        }
+      ],
       [
         "expo-splash-screen",
         {
@@ -41,8 +48,13 @@
       ]
     ],
     "experiments": {
-      "typedRoutes": true,
-      "reactCompiler": true
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "f8aad4b3-9ffb-449a-a2d9-596d7c22f885"
+      }
     }
   }
 }

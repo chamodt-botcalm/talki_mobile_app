@@ -1,0 +1,1 @@
+- [ ] Update the right side layout in components/MessageList.tsx to arrange date and seen in a row, pin under date, and unread count under date as a styled badge.
