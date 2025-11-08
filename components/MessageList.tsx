@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Animated, BackHandler, Dimensions, Image, Text, View } from 'react-native';
+import { Animated, BackHandler, Dimensions, Image, Pressable, Text, View } from 'react-native';
 
 const MessageList = () => {
   const router = useRouter();
@@ -93,9 +93,11 @@ const MessageList = () => {
       borderRightWidth: 1,
       borderRightColor: isTablet ? 'rgba(60, 60, 67, 0.29)' : 'transparent',
     }}>
+     
       <View style={{ marginTop: 23 }}>
         {messageData.map((item: any) => {
           return (
+             <Pressable onPress={() => router.push('/(message)/messagescreen')}>
             <View key={item.id} style={{
               borderBottomColor: 'rgba(60, 60, 67, 0.29)',
               borderBottomWidth: 1,
@@ -192,9 +194,11 @@ const MessageList = () => {
                 </View>
               </View>
             </View>
+             </Pressable>
           );
         })}
       </View>
+     
     </View>
   );
 };

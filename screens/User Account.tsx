@@ -104,7 +104,7 @@ export default function UserAccount() {
                         height: scaleHeight(5),
                         width: scaleWidth(83),
                         borderRadius: 6,
-                        alignSelf:'center',
+                        alignSelf: 'center',
                         marginTop: isTablet ? scaleHeight(20) : scaleHeight(11)
 
                     }}></View>
@@ -207,19 +207,19 @@ export default function UserAccount() {
                             }} />
                         </View>
                     </View>
-                                         <View style={{
-                                            position:'absolute',
-                                            bottom:isTablet?scaleHeight(116):scaleHeight(80),
-                                            left:isTablet?(dimensions.width-scaleWidth(490))/2:(dimensions.width-scaleWidth(371))/2
-                                        }}>
-                                            <Pressable
-                                                style={{
-                                                    backgroundColor: '#DBFF00',
-                                                    width: isTablet ? scaleWidth(490) : scaleWidth(371),
-                                                    height: isTablet ? scaleHeight(60) : scaleHeight(50),
-                                                    borderRadius: scale * 5,
-                                                    justifyContent: 'center'
-                                                }}                            onPress={() => router.push('/chat-screen')}
+                    <View style={{
+                        position: 'absolute',
+                        bottom: isTablet ? scaleHeight(116) : scaleHeight(80),
+                        left: isTablet ? (dimensions.width - scaleWidth(490)) / 2 : (dimensions.width - scaleWidth(371)) / 2
+                    }}>
+                        <Pressable
+                            style={{
+                                backgroundColor: '#DBFF00',
+                                width: isTablet ? scaleWidth(490) : scaleWidth(371),
+                                height: isTablet ? scaleHeight(60) : scaleHeight(50),
+                                borderRadius: scale * 5,
+                                justifyContent: 'center'
+                            }} onPress={() => router.push('/chat-screen')}
                         >
                             <Text style={{ color: 'black', fontSize: scale * 20, textAlign: 'center', fontFamily: 'Inter', }}>
                                 Done
@@ -230,4 +230,4 @@ export default function UserAccount() {
             </Animated.View>
         </View>
     )
-}
+} 
