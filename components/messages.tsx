@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import React from 'react'
 
 const Messages = () => {
@@ -8,138 +8,195 @@ const Messages = () => {
       id: '1',
       sender: 'person1',
       text: 'Do you know what time it is?',
-      time: '09:12 AM'
+      time: '09:12 AM',
+      hasSeen: false,
+      sent: false
     },
     {
       id: '2',
       sender: 'me',
       text: 'It’s morning in Australia.... ☀️',
-      time: '09:13 AM'
+      time: '09:13 AM',
+      hasSeen: true,
+      sent: false
     },
     {
       id: '3',
       sender: 'person1',
       text: 'What is the most popular Token in Japan?',
-      time: '09:14 AM'
+      time: '09:14 AM',
+      hasSeen: true,
+      sent: false
     },
     {
       id: '4',
       sender: 'person1',
       text: 'Do you like it?',
-      time: '09:14 AM'
+      time: '09:14 AM',
+      hasSeen: true,
+      sent: false
     },
     {
       id: '5',
       sender: 'me',
       text: 'I think the top two are Shiba Inu and Astar Network!',
-      time: '09:15 AM'
+      time: '09:15 AM',
+      hasSeen: true,
+      sent: false
     },
     {
       id: '6',
       sender: 'me',
       text: 'Payment done 💸',
-      time: '09:16 AM'
+      time: '09:16 AM',
+      hasSeen: true,
+      sent: false
     },
     {
       id: '7',
       sender: 'person1',
       text: 'Wow, that was fast! How did you send it so quickly?',
-      time: '09:17 AM'
+      time: '09:17 AM',
+      hasSeen: true,
+      sent: false
     },
     {
       id: '8',
       sender: 'me',
       text: 'Used my crypto wallet, instant transfer 😎',
-      time: '09:18 AM'
+      time: '09:18 AM',
+      hasSeen: true,
+      sent: false
     },
     {
       id: '9',
       sender: 'person1',
       text: 'Nice! Is that new Talki app you mentioned?',
-      time: '09:19 AM'
+      time: '09:19 AM',
+      hasSeen: true,
+      sent: false
     },
     {
       id: '10',
       sender: 'me',
       text: 'Yes exactly, it’s in beta now but super smooth. 🚀',
-      time: '09:20 AM'
+      time: '09:20 AM',
+      hasSeen: true,
+      sent: false
     },
     {
       id: '11',
       sender: 'person1',
       text: 'Sounds cool! Can I join the beta?',
-      time: '09:22 AM'
+      time: '09:22 AM',
+      hasSeen: true,
+      sent: false
     },
     {
       id: '12',
       sender: 'me',
       text: 'Sure! I’ll send you an invite link shortly 👍',
-      time: '09:23 AM'
+      time: '09:23 AM',
+      hasSeen: true,
+      sent: false
     },
     {
       id: '13',
       sender: 'person1',
       text: 'Thanks! By the way, did you see the market today?',
-      time: '09:25 AM'
+      time: '09:25 AM',
+      hasSeen: true,
+      sent: false
     },
     {
       id: '14',
       sender: 'me',
       text: 'Yeah, BTC bounced back again 😅',
-      time: '09:26 AM'
+      time: '09:26 AM',
+      hasSeen: true,
+      sent: false
     },
     {
       id: '15',
       sender: 'person1',
       text: 'Crazy! I wish I bought more last week.',
-      time: '09:27 AM'
+      time: '09:27 AM',
+      hasSeen: true,
+      sent: false
     },
     {
       id: '16',
       sender: 'me',
       text: 'Haha same here. Timing the market is impossible 😂, Haha same here. Timing the market is impossible 😂Haha same here. Timing the market is impossible 😂',
-      time: '09:28 AM'
+      time: '09:28 AM',
+      hasSeen: false,
+      sent: true
     }
   ]
 
   return (
-   
-      <View style={{
-        padding: 10,
-        marginTop: 28,
-        paddingBottom: 100
-      }}>
-        {messagess.map((message) => (
-          <View key={message.id} style={{ 
-            alignItems: message.sender === 'me' ? 'flex-end' : 'flex-start',
+
+    <View style={{
+      padding: 10,
+      marginTop: 28,
+      paddingBottom: 100
+    }}>
+      {messagess.map((message) => (
+        <View key={message.id} style={{
+          alignItems: message.sender === 'me' ? 'flex-end' : 'flex-start',
+        }}>
+          {
+            <View style={{
+              alignItems: message.sender === 'me' ? 'flex-end' : 'flex-start',
+              backgroundColor: message.sender === 'me' ? '#232323' : '#F7F7F7',
+              paddingVertical: 20,
+              marginVertical: 5,
+              paddingHorizontal: 15,
+              borderRadius: 15,
+              maxWidth: message.sender === 'me' ? '80%' : '80%'
             }}>
-            {
+              <Text style={{
+                color: message.sender === 'me' ? '#FFFFFF' : '#000000',
+                fontSize: 14,
+                marginBottom: 5
+              }}>{message.text}</Text>
               <View style={{
-                alignItems: message.sender === 'me' ? 'flex-end' : 'flex-start',
-                backgroundColor: message.sender === 'me' ? '#232323' : '#F7F7F7',
-                paddingVertical: 20,
-                marginVertical: 5,
-                paddingHorizontal: 15,
-                borderRadius: 15,
-                maxWidth: message.sender === 'me' ? '80%' : '80%'
+                flexDirection: 'row',
+                position: 'absolute',
+                right: 10,
+                bottom:3,
+                alignItems: 'center',
+                gap: 5
               }}>
                 <Text style={{
-                  color: message.sender === 'me' ? '#FFFFFF' : '#000000',
-                  fontSize: 14,
-                }}>{message.text}</Text>
-                <Text style={{
-                  position: 'absolute',
-                  right: 10,
-                  bottom: 3,
+
                   color: message.sender === 'me' ? '#D9FD00' : '#8E8E93',
                   fontSize: 11,
                 }}>{message.time}</Text>
+                {message.sender === 'me' && message.hasSeen &&
+                  <Image source={require('../assets/images/check-mark.png')}
+                    style={{
+                      width: 14,
+                      height: 7,
+                      tintColor: '#D9FD00'
+                    }} />
+                }
+                {message.sender === 'me' && message.sent &&
+                  <Image source={require('../assets/images/check.png')}
+                    style={{
+                      width: 8,
+                      height: 8,
+                      tintColor: '#D9FD00'
+                    }} />
+                }
+
               </View>
-            }
-          </View>
-        ),)}
-      </View>
-    
+            </View>
+          }
+        </View>
+      ),)}
+    </View>
+
   )
 }
 
