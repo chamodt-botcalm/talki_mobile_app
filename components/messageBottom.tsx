@@ -78,7 +78,8 @@ const MessageBottom = () => {
             borderColor:'#D1D1D6',
             borderWidth:1,
             borderRadius:20,
-            paddingHorizontal: scaleWidth(10)
+            paddingHorizontal: scaleWidth(10),
+            paddingLeft: scaleWidth(15)
           }}/>
           <Image source={require('../assets/images/microphone.png')}
                           style={{

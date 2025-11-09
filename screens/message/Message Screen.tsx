@@ -1,7 +1,8 @@
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Animated, BackHandler, Dimensions, Image, Pressable, Text, View } from 'react-native';
+import { Animated, BackHandler, Dimensions, Image, Pressable, ScrollView, Text, View } from 'react-native';
 import MessageBottom from '@/components/messageBottom';
+import Messages from '@/components/messages';
 
 export default function MessageScreen() {
 
@@ -81,7 +82,6 @@ export default function MessageScreen() {
 
 
 
-
       {/* Title Bar */}
       <View style={{
         position: 'absolute',
@@ -123,8 +123,8 @@ export default function MessageScreen() {
               fontSize: 16
             }}>Martha Craig</Text>
             <Text style={{
-              color: '#FFFFFF',
-              fontSize: 16
+              color: '#787878',
+              fontSize: 12
             }}>
               last seen just now</Text>
           </View>
@@ -147,9 +147,21 @@ export default function MessageScreen() {
         overflow: 'hidden',
       }}>
 
-      </View>
+         <ScrollView>
+          {/* Date */}
+          <Text style={{
+            marginTop: 25,
+            alignSelf: 'center',
+            color:'#787878',
+            fontSize:10
+          }}>23 October, Sunday</Text>
+
+        {/*Messages*/}
+        <Messages/>
+      </ScrollView>
       <MessageBottom/>
 
+    </View>
     </View>
   )
 }
