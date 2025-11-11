@@ -84,7 +84,7 @@ const InfoScreen = () => {
         paddingHorizontal: scaleWidth(14),
         marginTop: scaleHeight(73)
       }}>
-        <Pressable onPress={() => router.back()}>
+        <Pressable onPress={() => router.push('/(tabs)/chat-screen')}>
           <View style={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -101,302 +101,277 @@ const InfoScreen = () => {
 
             <Text style={{
               color: '#D9FD00',
-              fontSize: 16
+              fontSize: 18
             }}>Back</Text>
 
           </View>
         </Pressable>
         <Text style={{
           color: '#D9FD00',
-          fontSize: 16
+          fontSize: 18
         }}>Info</Text>
         <Text style={{
           color: '#D9FD00',
-          fontSize: 16
+          fontSize: 18
         }}>Edit</Text>
       </View>
 
       <Animated.View style={{
         backgroundColor: '#FFFFFF',
-        height: scaleHeight(811),
+        height: isTablet ? '90%' : scaleHeight(811),
         width: '100%',
         position: 'absolute',
         bottom: 0,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        overflow:'hidden',
-         transform: [{ translateY: slideAnim }],
+        overflow: 'hidden',
+        transform: [{ translateY: slideAnim }],
       }}>
         <ScrollView
-      contentContainerStyle={{
-        minHeight: scaleHeight(1000), // 👈 increases scroll height
-      }}
-    >
-        <View style={{
-          backgroundColor: '#AEAEB2',
-          width: scaleWidth(63),
-          height: scaleHeight(6),
-          borderRadius: 6,
-          position: 'absolute',
-          left: (dimensions.width - scaleWidth(63)) / 2,
-          top: scaleWidth(11)
-        }} />
+          contentContainerStyle={{
+            minHeight: isTablet ? scaleHeight(1092) : scaleHeight(1000),
 
-        {/* Title */}
-        <View style={{
-          marginTop: scaleHeight(40),
-          height: scaleHeight(92),
-          width: '100%',
-          backgroundColor: '#F6F6F6',
-          justifyContent: 'center'
-        }}>
+          }}
+        >
           <View style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingHorizontal: 30,
-            justifyContent: 'space-between'
+            backgroundColor: '#AEAEB2',
+            width: scaleWidth(63),
+            height: scaleHeight(6),
+            borderRadius: 6,
+            position: 'absolute',
+            left: (dimensions.width - scaleWidth(63)) / 2,
+            top: scaleWidth(11)
+          }} />
+
+          {/* Title */}
+          <View style={{
+            marginTop: scaleHeight(40),
+            height: scaleHeight(92),
+            width: '100%',
+            backgroundColor: '#F6F6F6',
+            justifyContent: 'center',
+            borderBottomColor: '#C6C6C8',
+            borderBottomWidth: 1,
           }}>
             <View style={{
               flexDirection: 'row',
               alignItems: 'center',
-              gap: scaleWidth(30)
+              paddingHorizontal: 30,
+              justifyContent: 'space-between'
             }}>
-              <Image source={require('../../assets/images/Martha.png')}
+              <View style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: scaleWidth(30)
+              }}>
+                <Image source={require('../../assets/images/Martha.png')}
+                  style={{
+                    width: scaleWidth(66),
+                    height: scaleHeight(66),
+                    resizeMode: 'contain'
+                  }}
+                />
+                <View style={{
+                  flexDirection: 'column'
+                }}>
+                  <Text style={{
+                    fontSize: 19
+                  }}>Martha Craig</Text>
+                  <Text style={{
+                    color: '#037EE5',
+                    fontSize: 15
+                  }}>Online</Text>
+                </View>
+              </View>
+              <Image source={require('../../assets/images/telephone.png')}
                 style={{
-                  width: scaleWidth(66),
-                  height: scaleHeight(66),
+                  width: scaleWidth(22),
+                  height: scaleHeight(22),
+                  tintColor: '#037EE5',
                   resizeMode: 'contain'
                 }}
               />
+            </View>
+          </View>
+
+
+          <View style={{
+            backgroundColor: isTablet ? '#F6F6F6' : 'none',
+            marginTop: isTablet ? scaleHeight(20) : scaleHeight(0)
+          }}>
+            <View style={{
+              marginLeft: isTablet ? scaleWidth(34) : scaleWidth(18),
+              marginTop: scaleHeight(10)
+            }}>
               <View style={{
-                flexDirection: 'column'
+                flexDirection: 'column',
+                paddingVertical: isTablet ? scaleHeight(20) : scaleHeight(12),
               }}>
+                <Text>Wallet</Text>
                 <Text style={{
-                  fontSize: 19
-                }}>Martha Craig</Text>
-                <Text style={{
-                  color: '#037EE5',
-                  fontSize: 15
-                }}>Online</Text>
+                  color: '#00B12C'
+                }}>0xb96cc255470............599</Text>
               </View>
             </View>
-            <Image source={require('../../assets/images/telephone.png')}
-              style={{
-                width: scaleWidth(22),
-                height: scaleHeight(22),
-                tintColor: '#037EE5',
-                resizeMode: 'contain'
-              }}
-            />
+            <View style={{
+              borderBottomColor: '#C6C6C8',
+              borderBottomWidth: 1,
+              width: isTablet ? scaleWidth(735) : scaleWidth(380),
+              alignSelf: 'center'
+            }} />
           </View>
-        </View>
 
-
-        <View>
           <View style={{
-            marginLeft: scaleWidth(18),
-            marginTop: scaleHeight(10)
+            backgroundColor: isTablet ? '#F6F6F6' : 'none',
           }}>
             <View style={{
-              flexDirection: 'column',
-              paddingVertical: scaleHeight(12),
+              marginLeft: isTablet ? scaleWidth(34) : scaleWidth(18)
             }}>
-              <Text>Wallet</Text>
-              <Text style={{
-                color: '#00B12C'
-              }}>0xb96cc255470............599</Text>
-            </View>
-          </View>
-          <View style={{
-            borderBottomColor: '#C6C6C8',
-            borderBottomWidth: 1,
-            width: scaleWidth(380),
-            alignSelf: 'center'
-          }} />
-        </View>
-
-        <View>
-          <View style={{
-            marginLeft: scaleWidth(18)
-          }}>
-            <View style={{
-              flexDirection: 'column',
-              paddingVertical: scaleHeight(12),
-            }}>
-              <Text>Wallet #</Text>
-              <Text style={{
-                color: '#037EE5'
-              }}>0xb96cc255470............599</Text>
-            </View>
-          </View>
-          <View style={{
-            borderBottomColor: '#C6C6C8',
-            borderBottomWidth: 1,
-            width: scaleWidth(380),
-            alignSelf: 'center'
-          }} />
-        </View>
-
-        <View>
-          <View style={{
-            marginLeft: scaleWidth(18)
-          }}>
-            <View style={{
-              flexDirection: 'column',
-              paddingVertical: scaleHeight(12),
-            }}>
-              <Text>Bio</Text>
-              <Text>Lorem ipsum dolor sit amet consectetur.</Text>
-            </View>
-          </View>
-          <View style={{
-            borderBottomColor: '#C6C6C8',
-            borderBottomWidth: 1,
-            width: scaleWidth(380),
-            alignSelf: 'center'
-          }} />
-        </View>
-
-        <View>
-          <View style={{
-            marginLeft: scaleWidth(18),
-            marginTop: scaleHeight(20)
-          }}>
-            <View style={{
-              flexDirection: 'column',
-              paddingVertical: scaleHeight(12),
-            }}>
-              <Text>username</Text>
-              <Text style={{
-                color: '#037EE5'
-              }}>@marthacraig</Text>
-            </View>
-          </View>
-          <View style={{
-            borderBottomColor: '#C6C6C8',
-            borderBottomWidth: 1,
-            width: scaleWidth(380),
-            alignSelf: 'center'
-          }} />
-        </View>
-
-        <View>
-          <View style={{
-            marginLeft: scaleWidth(18),
-            marginTop: scaleHeight(20)
-          }}>
-            <View style={{
-              flexDirection: 'column',
-              paddingVertical: scaleHeight(12),
-            }}>
-              <Text style={{
-                color: '#037EE5'
-              }}>Send Message</Text>
-            </View>
-          </View>
-          <View style={{
-            borderBottomColor: '#C6C6C8',
-            borderBottomWidth: 1,
-            width: scaleWidth(380),
-            alignSelf: 'center'
-          }} />
-        </View>
-
-        <View>
-          <View style={{
-            marginLeft: scaleWidth(18)
-          }}>
-            <View style={{
-              flexDirection: 'column',
-              paddingVertical: scaleHeight(12),
-            }}>
-              <Text style={{
-                color: '#037EE5'
-              }}>Share Wallet</Text>
-            </View>
-          </View>
-          <View style={{
-            borderBottomColor: '#C6C6C8',
-            borderBottomWidth: 1,
-            width: scaleWidth(380),
-            alignSelf: 'center'
-          }} />
-        </View>
-
-        <View>
-          <View style={{
-            marginLeft: scaleWidth(18)
-          }}>
-            <View style={{
-              flexDirection: 'column',
-              paddingVertical: scaleHeight(12),
-            }}>
-              <Text style={{
-                color: '#037EE5'
-              }}>Start Secret Chat</Text>
-            </View>
-          </View>
-          <View style={{
-            borderBottomColor: '#C6C6C8',
-            borderBottomWidth: 1,
-            width: scaleWidth(380),
-            alignSelf: 'center'
-          }} />
-        </View>
-
-        <View>
-          <View style={{
-            marginLeft: scaleWidth(18),
-            marginTop: scaleHeight(20)
-          }}>
-            <View style={{
-              flexDirection: 'row',
-              paddingVertical: scaleHeight(12),
-              alignItems: 'center',
-              justifyContent: 'space-between'
-            }}>
-              <Text style={{
-                color: '#00000'
-              }}>Shared Media</Text>
-              <Image source={require('../../assets/images/next.png')}
-                style={{
-                  marginRight: scaleWidth(20),
-                  width: scaleWidth(12),
-                  height: scaleHeight(12),
-                  tintColor: '#C6C6C8'
-                }}
-              />
-            </View>
-          </View>
-          <View style={{
-            borderBottomColor: '#C6C6C8',
-            borderBottomWidth: 1,
-            width: scaleWidth(380),
-            alignSelf: 'center'
-          }} />
-        </View>
-
-        <View>
-          <View style={{
-            marginLeft: scaleWidth(18),
-          }}>
-            <View style={{
-              flexDirection: 'row',
-              paddingVertical: scaleHeight(12),
-              alignItems: 'center',
-              justifyContent: 'space-between'
-            }}>
-              <Text style={{
-                color: '#00000'
-              }}>Notifications</Text>
               <View style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: scaleWidth(15)
+                flexDirection: 'column',
+                paddingVertical: isTablet ? scaleHeight(20) : scaleHeight(12),
+              }}>
+                <Text>Wallet #</Text>
+                <Text style={{
+                  color: '#037EE5'
+                }}>0xb96cc255470............599</Text>
+              </View>
+            </View>
+            <View style={{
+              borderBottomColor: '#C6C6C8',
+              borderBottomWidth: 1,
+              width: isTablet ? scaleWidth(735) : scaleWidth(380),
+              alignSelf: 'center'
+            }} />
+          </View>
+
+          <View style={{
+            backgroundColor: isTablet ? '#F6F6F6' : 'none',
+          }}>
+            <View style={{
+              marginLeft: isTablet ? scaleWidth(34) : scaleWidth(18),
+            }}>
+              <View style={{
+                flexDirection: 'column',
+                paddingVertical: isTablet ? scaleHeight(20) : scaleHeight(12),
+              }}>
+                <Text>Bio</Text>
+                <Text>Lorem ipsum dolor sit amet consectetur.</Text>
+              </View>
+            </View>
+            <View style={{
+              borderBottomColor: '#C6C6C8',
+              borderBottomWidth: 1,
+              width: isTablet ? scaleWidth(735) : scaleWidth(380),
+              alignSelf: 'center'
+            }} />
+          </View>
+
+          <View>
+            <View style={{
+              marginLeft: isTablet ? scaleWidth(22) : scaleWidth(18),
+              marginTop: isTablet ? scaleHeight(30) : scaleHeight(20)
+            }}>
+              <View style={{
+                flexDirection: 'column',
+                paddingVertical: isTablet ? scaleHeight(20) : scaleHeight(12),
+              }}>
+                <Text>username</Text>
+                <Text style={{
+                  color: '#037EE5'
+                }}>@marthacraig</Text>
+              </View>
+            </View>
+            <View style={{
+              borderBottomColor: '#C6C6C8',
+              borderBottomWidth: 1,
+              width: isTablet ? scaleWidth(735) : scaleWidth(380),
+              alignSelf: 'center'
+            }} />
+          </View>
+
+          <View>
+            <View style={{
+              marginLeft: isTablet ? scaleWidth(34) : scaleWidth(18),
+              marginTop: isTablet ? scaleHeight(27) : scaleHeight(20)
+            }}>
+              <View style={{
+                flexDirection: 'column',
+                paddingVertical: scaleHeight(12),
               }}>
                 <Text style={{
-                  color: '#C6C6C8'
-                }}>Enabled</Text>
+                  color: '#037EE5'
+                }}>Send Message</Text>
+              </View>
+            </View>
+            <View style={{
+              borderBottomColor: '#C6C6C8',
+              borderBottomWidth: 1,
+              width: isTablet ? scaleWidth(735) : scaleWidth(380),
+              alignSelf: 'center'
+            }} />
+          </View>
+
+          <View>
+            <View style={{
+              marginLeft: isTablet ? scaleWidth(34) : scaleWidth(18),
+
+            }}>
+              <View style={{
+                flexDirection: 'column',
+                paddingVertical: isTablet ? scaleHeight(20) : scaleHeight(12),
+              }}>
+                <Text style={{
+                  color: '#037EE5'
+                }}>Share Wallet</Text>
+              </View>
+            </View>
+            <View style={{
+              borderBottomColor: '#C6C6C8',
+              borderBottomWidth: 1,
+              width: isTablet ? scaleWidth(735) : scaleWidth(380),
+              alignSelf: 'center'
+            }} />
+          </View>
+
+          <View>
+            <View style={{
+              marginLeft: isTablet ? scaleWidth(34) : scaleWidth(18),
+
+            }}>
+              <View style={{
+                flexDirection: 'column',
+                paddingVertical: isTablet ? scaleHeight(20) : scaleHeight(12),
+              }}>
+                <Text style={{
+                  color: '#037EE5'
+                }}>Start Secret Chat</Text>
+              </View>
+            </View>
+            <View style={{
+              borderBottomColor: '#C6C6C8',
+              borderBottomWidth: 1,
+              width: isTablet ? scaleWidth(735) : scaleWidth(380),
+              alignSelf: 'center'
+            }} />
+          </View>
+
+          <View>
+            <View style={{
+              marginLeft: isTablet ? scaleWidth(34) : scaleWidth(18),
+              marginTop: isTablet ? scaleHeight(27) : scaleHeight(20)
+            }}>
+              <View style={{
+                flexDirection: 'row',
+                paddingVertical: isTablet ? scaleHeight(20) : scaleHeight(12),
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                paddingRight: isTablet ? '5%' : scaleWidth(0)
+
+              }}>
+                <Text style={{
+                  color: '#00000'
+                }}>Shared Media</Text>
                 <Image source={require('../../assets/images/next.png')}
                   style={{
                     marginRight: scaleWidth(20),
@@ -407,71 +382,116 @@ const InfoScreen = () => {
                 />
               </View>
             </View>
-          </View>
-          <View style={{
-            borderBottomColor: '#C6C6C8',
-            borderBottomWidth: 1,
-            width: scaleWidth(380),
-            alignSelf: 'center'
-          }} />
-        </View>
-
-        <View>
-          <View style={{
-            marginLeft: scaleWidth(18),
-          }}>
             <View style={{
-              flexDirection: 'row',
-              paddingVertical: scaleHeight(12),
-              alignItems: 'center',
-              justifyContent: 'space-between'
+              borderBottomColor: '#C6C6C8',
+              borderBottomWidth: 1,
+              width: isTablet ? scaleWidth(735) : scaleWidth(380),
+              alignSelf: 'center'
+            }} />
+          </View>
+
+          <View>
+            <View style={{
+              marginLeft: isTablet ? scaleWidth(34) : scaleWidth(18),
+
             }}>
-              <Text style={{
-                color: '#00000'
-              }}>Groups In Common</Text>
               <View style={{
                 flexDirection: 'row',
+                paddingVertical: isTablet ? scaleHeight(20) : scaleHeight(12),
                 alignItems: 'center',
-                gap: scaleWidth(15)
+                justifyContent: 'space-between',
+                paddingRight: isTablet ? '5%' : scaleWidth(0)
               }}>
                 <Text style={{
-                  color: '#C6C6C8'
-                }}>1</Text>
-                <Image source={require('../../assets/images/next.png')}
-                  style={{
-                    marginRight: scaleWidth(20),
-                    width: scaleWidth(12),
-                    height: scaleHeight(12),
-                    tintColor: '#C6C6C8'
-                  }}
-                />
+                  color: '#00000'
+                }}>Notifications</Text>
+                <View style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: scaleWidth(15)
+                }}>
+                  <Text style={{
+                    color: '#C6C6C8'
+                  }}>Enabled</Text>
+                  <Image source={require('../../assets/images/next.png')}
+                    style={{
+                      marginRight: scaleWidth(20),
+                      width: scaleWidth(12),
+                      height: scaleHeight(12),
+                      tintColor: '#C6C6C8'
+                    }}
+                  />
+                </View>
               </View>
             </View>
+            <View style={{
+              borderBottomColor: '#C6C6C8',
+              borderBottomWidth: 1,
+              width: isTablet ? scaleWidth(735) : scaleWidth(380),
+              alignSelf: 'center'
+            }} />
           </View>
-          <View style={{
-            borderBottomColor: '#C6C6C8',
-            borderBottomWidth: 1,
-            width: scaleWidth(380),
-            alignSelf: 'center'
-          }} />
-        </View>
 
-        <View>
+          <View>
+            <View style={{
+              marginLeft: isTablet ? scaleWidth(34) : scaleWidth(18),
 
+            }}>
+              <View style={{
+                flexDirection: 'row',
+                paddingVertical: isTablet ? scaleHeight(20) : scaleHeight(12),
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                paddingRight: isTablet ? '5%' : scaleWidth(0)
 
-          <View style={{
-            flexDirection: 'column',
-            paddingVertical: scaleHeight(12),
-            backgroundColor: '#F6F6F6',
-            marginTop: scaleHeight(20)
-          }}>
-            <Text style={{
-              color: '#FE3B30',
-              marginLeft: scaleWidth(18),
-            }}>Block User</Text>
+              }}>
+                <Text style={{
+                  color: '#00000'
+                }}>Groups In Common</Text>
+                <View style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: scaleWidth(15)
+                }}>
+                  <Text style={{
+                    color: '#C6C6C8'
+                  }}>1</Text>
+                  <Image source={require('../../assets/images/next.png')}
+                    style={{
+                      marginRight: scaleWidth(20),
+                      width: scaleWidth(12),
+                      height: scaleHeight(12),
+                      tintColor: '#C6C6C8'
+                    }}
+                  />
+                </View>
+              </View>
+            </View>
+            <View style={{
+              borderBottomColor: '#C6C6C8',
+              borderBottomWidth: 1,
+              width: isTablet ? scaleWidth(735) : scaleWidth(380),
+              alignSelf: 'center'
+            }} />
           </View>
-        </View>
-</ScrollView>
+
+          <View>
+
+
+            <View style={{
+              flexDirection: 'column',
+              paddingVertical: isTablet ? scaleHeight(20) : scaleHeight(12),
+              backgroundColor: '#F6F6F6',
+              marginTop: scaleHeight(20)
+            }}>
+              <Text style={{
+                color: '#FE3B30',
+                marginLeft: isTablet ? scaleWidth(34) : scaleWidth(18),
+
+              }}>Block User</Text>
+            </View>
+          </View>
+        </ScrollView>
       </Animated.View>
 
 

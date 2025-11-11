@@ -57,8 +57,9 @@ const MessageBottomTab = () => {
         style={{
           flexDirection: 'row',
           alignItems: 'center',
-          justifyContent: 'flex-start',
-          gap: scaleWidth(20),
+          justifyContent: 'center',
+          gap: scaleWidth(69),
+          width:'50%'
         }}
       >
         {tabItems.map((item, index) => {

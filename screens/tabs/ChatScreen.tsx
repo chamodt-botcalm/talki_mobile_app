@@ -161,7 +161,6 @@ export default function ChatScreen() {
                         </View>
                     )}
                 </View>
-                <MessageBottomTab />
             </View>
         );
     }
@@ -177,8 +176,8 @@ export default function ChatScreen() {
             <View style={{
                 flexDirection: 'row',
                 position: 'absolute',
-                right: scaleWidth(11),
-                top: scaleHeight(73),
+                right: '3%',
+                top:dimensions.height * 0.05,
                 gap: scaleWidth(10),
             }}>
                 <Image source={require('../../assets/images/telephone.png')}

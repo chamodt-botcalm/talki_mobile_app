@@ -195,7 +195,7 @@ export default function MessageScreen() {
           }}>23 October, Sunday</Text>
           <Messages />
         </ScrollView>
-       <MessageBottom />
+       <MessageBottom/>
       </View>
     </KeyboardAvoidingView>
   )
