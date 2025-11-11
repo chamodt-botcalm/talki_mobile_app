@@ -50,14 +50,15 @@ const MessageBottom = () => {
 
 
   return (
-    <View style={{ 
+    <View style={{
       position:'absolute',
-      bottom:scaleHeight(0),
+      bottom:0, 
       height:scaleHeight(90),
       width:'100%',
       backgroundColor:'#F6F5FA',
       borderTopColor:'#7A7A7A',
-      borderTopWidth:1
+      borderTopWidth:1,
+     
       }}>
       <View style={{
         flexDirection:'row',

@@ -5,13 +5,15 @@ import BottomNavigator from '@/components/BottomNavigator';
 
 const messagelayout = () => {
   return (
+    
     <Tabs
-         tabBar={() => <MessageBottom />}
          screenOptions={{
            headerShown: false,
+           tabBarStyle: { display: 'none' }
          }}
        >
          <Tabs.Screen name="messagescreen" />
+         <Tabs.Screen name="info-screen"/>
        </Tabs>
   )
 }

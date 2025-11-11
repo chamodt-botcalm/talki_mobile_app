@@ -1,9 +1,10 @@
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Animated, BackHandler, Dimensions, Image, Pressable, ScrollView, Text, View } from 'react-native';
-import MessageBottom from '@/components/messageBottom';
-import Messages from '@/components/messages';
+import { Animated, BackHandler, Dimensions, Image, Pressable, ScrollView, Text, View, KeyboardAvoidingView, Platform } from 'react-native';
+import MessageBottom from '../../components/messageBottom';
+import MessageBottomTab from '../../components/messageBottomTab';
 
+import Messages from '@/components/messages';
 export default function MessageScreen() {
 
   const router = useRouter();
@@ -74,94 +75,128 @@ export default function MessageScreen() {
 
 
   return (
-    <View style={{
+    <KeyboardAvoidingView style={{
+      flex: 1,
       backgroundColor: '#232323',
-      width: '100%',
-      height: '100%',
-    }}>
-
-
-
+    }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
       {/* Title Bar */}
       <View style={{
-        position: 'absolute',
-        top: scaleHeight(60),
-        width: '100%'
+        paddingTop: isTablet ? scaleHeight(4) : scaleHeight(60),
+        backgroundColor: isTablet ? '#F6F5FA' : '#232323',
+        paddingBottom: isTablet ? scaleHeight(5) : scaleHeight(20),
+        borderTopRightRadius: isTablet ? 30 : 0,
+        overflow: 'hidden'
       }}>
         <View style={{
           flexDirection: 'row',
-          justifyContent: 'space-between',
+          justifyContent: isTablet ? 'space-between' : 'space-between',
           alignItems: 'center',
-          paddingHorizontal: scaleWidth(20)
+          paddingHorizontal: scaleWidth(20),
+
         }}>
-          <Pressable onPress={() => router.back()}>
-            <View style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 5
-            }}>
-
-              <Image source={require('../../assets/images/backk.png')}
+          {!isTablet && (
+            <>
+              <Pressable onPress={() => router.back()}>
+                <View style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 5
+                }}>
+                  <Image source={require('../../assets/images/backk.png')}
+                    style={{
+                      width: 14,
+                      height: 14,
+                      tintColor: '#D9FD00'
+                    }} />
+                  <Text style={{
+                    color: '#D9FD00',
+                    fontSize: 16
+                  }}>Chats</Text>
+                </View>
+              </Pressable>
+              <View style={{
+                flexDirection: 'column',
+                alignItems: 'center'
+              }}>
+                 <Pressable onPress={()=> router.push('/info-screen' as any)}>
+                <Text style={{
+                  color: '#FFFFFF',
+                  fontSize: 16
+                }}>Martha Craig</Text>
+                <Text style={{
+                  color: '#787878',
+                  fontSize: 12
+                }}>
+                  last seen just now</Text>
+                  </Pressable>
+              </View>
+              <Image source={require('../../assets/images/Oval.png')}
                 style={{
-                  width: 14,
-                  height: 14,
-                  tintColor: '#D9FD00'
+                  width: 34,
+                  height: 34,
                 }} />
-              <Text style={{
-                color: '#D9FD00',
-                fontSize: 16
-              }}>Chats</Text>
-
-            </View>
-          </Pressable>
-          <View style={{
-            flexDirection: 'column',
-            alignItems: 'center'
-          }}>
-            <Text style={{
-              color: '#FFFFFF',
-              fontSize: 16
-            }}>Martha Craig</Text>
-            <Text style={{
-              color: '#787878',
-              fontSize: 12
-            }}>
-              last seen just now</Text>
-          </View>
-          <Image source={require('../../assets/images/Oval.png')}
-            style={{
-              width: 34,
-              height: 34,
-            }} />
+                
+            </>
+          )}
+          {isTablet && (
+            <>
+              <View style={{
+                flexDirection: 'row',
+                alignItems: "center",
+                gap: 16
+              }}><Pressable onPress={()=> router.push('/info-screen' as any)}>
+                <Image source={require('../../assets/images/Martha.png')}
+                  style={{
+                    width: 52,
+                    height: 52,
+                  }} />
+                  </Pressable>
+                <View style={{
+                  flexDirection: 'column',
+                  alignItems: 'flex-start'
+                }}>
+                   <Pressable onPress={()=> router.push('/info-screen' as any)}>
+                  <Text style={{
+                    color: '#000000',
+                    fontSize: 16
+                  }}>Martha Craig</Text>
+                  <Text style={{
+                    color: '#037EE5',
+                    fontSize: 12
+                  }}>
+                    Online</Text>
+                    </Pressable>
+                </View>
+              </View>
+              <Image source={require('../../assets/images/telephone.png')}
+                style={{
+                  width: 17,
+                  height: 17,
+                  tintColor: '#037EE5'
+                }} />
+            </>
+          )}
         </View>
       </View>
 
-
-
+      {/* Messages Area */}
       <View style={{
-        position: 'absolute',
-        bottom: 0,
+        flex: 1,
         backgroundColor: '#FFFFFF',
-        width: '100%',
-        height: scaleHeight(811),
-        overflow: 'hidden',
       }}>
-
-         <ScrollView>
-          {/* Date */}
+        <ScrollView style={{ flex: 1 }}>
           <Text style={{
             marginTop: 25,
             alignSelf: 'center',
-            color:'#787878',
-            fontSize:10
+            color: '#787878',
+            fontSize: 10
           }}>23 October, Sunday</Text>
-
-        {/*Messages*/}
-        <Messages/>
-      </ScrollView>
-      <MessageBottom/>
-
-    </View>
-    </View>
+          <Messages />
+        </ScrollView>
+       <MessageBottom />
+      </View>
+    </KeyboardAvoidingView>
   )
 }

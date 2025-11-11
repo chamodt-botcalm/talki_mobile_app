@@ -1,12 +1,15 @@
 import MessageList from '@/components/MessageList';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Animated, BackHandler, Dimensions, ScrollView, View } from 'react-native';
+import { Animated, BackHandler, Dimensions, ScrollView, View, Image } from 'react-native';
 import StoryView from '../../components/StoryView';
+import MessageScreen from '../message/Message Screen';
+import MessageBottomTab from '../../components/messageBottomTab';
 
 export default function ChatScreen() {
 
     const router = useRouter();
+    const [selectedChat, setSelectedChat] = useState<string | null>(null);
 
     const [dimensions, setDimensions] = useState({
         width: Dimensions.get('window').width,
@@ -72,12 +75,127 @@ export default function ChatScreen() {
         dimensions.height / currentBaseHeight
     );
 
+    if (isTablet) {
+        return (
+            <View style={{
+                backgroundColor: '#232323',
+                width: '100%',
+                height: '100%',
+                flexDirection: 'row',
+
+            }}>
+
+                <View style={{
+                    flexDirection: 'row',
+                    position: 'absolute',
+                    right: scaleWidth(41),
+                    top: scaleHeight(45),
+                    gap: scaleWidth(10),
+                }}>
+                    <Image source={require('../../assets/images/telephone.png')}
+                        style={{
+                            width: 30,
+                            height: 30,
+                            tintColor: '#D9FD00'
+                        }} />
+
+                    <Image source={require('../../assets/images/edit.png')}
+                        style={{
+                            width: 30,
+                            height: 30,
+                            tintColor: '#D9FD00'
+                        }} />
+                </View>
+
+                <View style={{
+                    position: 'absolute',
+                    bottom: dimensions.height - scaleHeight(260),
+                    width: '100%',
+                    height: scaleHeight(160),
+                    zIndex: 1
+                }}>
+                    <StoryView />
+                </View>
+
+                {/* Left Side - Chat List */}
+                <View style={{
+                    width: '50%',
+                    height: '100%',
+                    backgroundColor: '#232323',
+                }}>
+
+
+                    <View style={{
+                        position: 'absolute',
+                        top: scaleHeight(220),
+                        bottom: 0,
+                        backgroundColor: '#FFFFFF',
+                        width: '100%',
+                        borderTopLeftRadius: 30,
+
+                        overflow: 'hidden',
+                    }}>
+                        <ScrollView showsVerticalScrollIndicator={false}>
+                            <MessageList onChatSelect={setSelectedChat} />
+                        </ScrollView>
+                    </View>
+                </View>
+
+                {/* Right Side - Message Screen */}
+                <View style={{
+                    width: '50%',
+                    height: '100%',
+                    paddingTop: scaleHeight(220),
+                }}>
+                    {selectedChat ? (
+                        <MessageScreen />
+                    ) : (
+                        <View style={{
+                            flex: 1,
+                            backgroundColor: '#F5F5F5',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            borderTopRightRadius: 30,
+                        }}>
+                            {/* Placeholder when no chat selected */}
+                        </View>
+                    )}
+                </View>
+                <MessageBottomTab />
+            </View>
+        );
+    }
+
+    // Mobile Layout
     return (
         <View style={{
             backgroundColor: '#232323',
             width: '100%',
             height: '100%',
         }}>
+
+            <View style={{
+                flexDirection: 'row',
+                position: 'absolute',
+                right: scaleWidth(11),
+                top: scaleHeight(73),
+                gap: scaleWidth(10),
+            }}>
+                <Image source={require('../../assets/images/telephone.png')}
+                    style={{
+                        width: 17,
+                        height: 17,
+                        tintColor: '#D9FD00'
+                    }} />
+
+                <Image source={require('../../assets/images/edit.png')}
+                    style={{
+                        width: 17,
+                        height: 17,
+                        tintColor: '#D9FD00'
+                    }} />
+            </View>
+
             <View style={{
                 position: 'absolute',
                 bottom: scaleHeight(714),
@@ -91,7 +209,7 @@ export default function ChatScreen() {
                 bottom: 0,
                 backgroundColor: '#FFFFFF',
                 width: '100%',
-                height: isTablet ? scaleHeight(954) : scaleHeight(714),
+                height: scaleHeight(714),
                 borderTopLeftRadius: 30,
                 borderTopRightRadius: 30,
                 overflow: 'hidden',
@@ -100,7 +218,6 @@ export default function ChatScreen() {
                     <MessageList />
                 </ScrollView>
             </View>
-
         </View>
     )
 }

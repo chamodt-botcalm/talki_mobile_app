@@ -2,7 +2,11 @@ import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Animated, BackHandler, Dimensions, Image, Pressable, Text, View } from 'react-native';
 
-const MessageList = () => {
+interface MessageListProps {
+  onChatSelect?: (chatId: string) => void;
+}
+
+const MessageList = ({ onChatSelect }: MessageListProps) => {
   const router = useRouter();
 
   const [dimensions, setDimensions] = useState({
@@ -89,116 +93,127 @@ const MessageList = () => {
 
   return (
     <View style={{
-      width: isTablet ? '50%' : '100%',
-      borderRightWidth: 1,
-      borderRightColor: isTablet ? 'rgba(60, 60, 67, 0.29)' : 'transparent',
+      width: '100%',
+      borderRightColor: 'rgba(60, 60, 67, 0.29)',
+      borderRightWidth: isTablet ? 1 : 0,
     }}>
-     
-      <View style={{ marginTop: 23 }}>
+
+      <View style={{
+        marginTop: 23,
+        marginBottom: 100,
+
+      }}>
         {messageData.map((item: any) => {
           return (
-             <Pressable onPress={() => router.push('/(message)/messagescreen')}>
-            <View key={item.id} style={{
-              borderBottomColor: 'rgba(60, 60, 67, 0.29)',
-              borderBottomWidth: 1,
-              paddingVertical: 7,
+            <Pressable onPress={() => {
+              if (onChatSelect) {
+                onChatSelect(item.id);
+              } else {
+                router.push('/(message)/messagescreen');
+              }
             }}>
-              <View style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginLeft: 10,
-                marginRight: 10,
-              }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
-                  <View>
-                    <Image source={{ uri: item.userImage }}
-                      style={{
-                        width: 62,
-                        height: 62,
-                        borderRadius: 40,
-                      }} />
-                  </View>
-                  <View style={{
-                    flexDirection: 'column',
-                    marginLeft: 11,
-                    flex: 1,
-                  }}>
-                    <Text style={{ fontWeight: 'bold' }}>{item.userName}</Text>
-                    <Text style={{ fontSize: 12, color: '#666' }}>{item.userid}</Text>
-                    <Text style={{
-                      color: '#8E8E93',
-                      marginTop: 4,
-                    }}>{item.message}</Text>
-                  </View>
-                </View>
+              <View key={item.id} style={{
+                borderBottomColor: 'rgba(60, 60, 67, 0.29)',
+                borderBottomWidth: 1,
+                paddingVertical: 7,
 
+              }}>
                 <View style={{
-                  alignItems: 'flex-end',
-                  justifyContent: 'space-between',
-                  height: 62,
-                  paddingVertical: 4,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginLeft: 10,
+                  marginRight: 10,
                 }}>
-                  <View style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    gap: 4,
-                  }}>
-                    
-                    {item.hasSeen && (
-                      <Image source={require('../assets/images/check-mark.png')}
+                  <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+                    <View>
+                      <Image source={{ uri: item.userImage }}
                         style={{
-                          width: 30,
-                          height: 30,
-                          tintColor: '#34C759'
+                          width: 62,
+                          height: 62,
+                          borderRadius: 40,
                         }} />
-                    )}
-                    <Text style={{ 
-                      fontSize: 14, 
-                      color: '#8E8E93',
-                      fontWeight: '400'
-                    }}>{item.date}</Text>
+                    </View>
+                    <View style={{
+                      flexDirection: 'column',
+                      marginLeft: 11,
+                      flex: 1,
+                    }}>
+                      <Text style={{ fontWeight: 'bold' }}>{item.userName}</Text>
+                      <Text style={{ fontSize: 12, color: '#666' }}>{item.userid}</Text>
+                      <Text style={{
+                        color: '#8E8E93',
+                        marginTop: 4,
+                      }}>{item.message}</Text>
+                    </View>
                   </View>
-                  
+
                   <View style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    gap: 8,
+                    alignItems: 'flex-end',
+                    justifyContent: 'space-between',
+                    height: 62,
+                    paddingVertical: 4,
                   }}>
-                    {item.hasPin && (
-                      <Image source={require('../assets/images/pin.png')}
-                        style={{
-                          width: 14,
-                          height: 14,
-                          tintColor: '#8E8E93'
-                        }} />
-                    )}
-                    {item.unreadCount > 0 && (
-                      <View style={{
-                        backgroundColor: '#232323',
-                        borderRadius: 12,
-                        paddingHorizontal: 6,
-                        paddingVertical: 2,
-                        width:30,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}>
-                        <Text style={{ 
-                          
-                          fontSize: 12, 
-                          fontWeight: '600',
-                          color:'#D9FD00'
-                        }}>{item.unreadCount}</Text>
-                      </View>
-                    )}
+                    <View style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 4,
+                    }}>
+
+                      {item.hasSeen && (
+                        <Image source={require('../assets/images/check-mark.png')}
+                          style={{
+                            width: 30,
+                            height: 30,
+                            tintColor: '#34C759'
+                          }} />
+                      )}
+                      <Text style={{
+                        fontSize: 14,
+                        color: '#8E8E93',
+                        fontWeight: '400'
+                      }}>{item.date}</Text>
+                    </View>
+
+                    <View style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 8,
+                    }}>
+                      {item.hasPin && (
+                        <Image source={require('../assets/images/pin.png')}
+                          style={{
+                            width: 14,
+                            height: 14,
+                            tintColor: '#8E8E93'
+                          }} />
+                      )}
+                      {item.unreadCount > 0 && (
+                        <View style={{
+                          backgroundColor: '#232323',
+                          borderRadius: 12,
+                          paddingHorizontal: 6,
+                          paddingVertical: 2,
+                          width: 30,
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}>
+                          <Text style={{
+
+                            fontSize: 12,
+                            fontWeight: '600',
+                            color: '#D9FD00'
+                          }}>{item.unreadCount}</Text>
+                        </View>
+                      )}
+                    </View>
                   </View>
                 </View>
               </View>
-            </View>
-             </Pressable>
+            </Pressable>
           );
         })}
       </View>
-     
+
     </View>
   );
 };

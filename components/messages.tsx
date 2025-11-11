@@ -1,7 +1,49 @@
-import { View, Text, Image } from 'react-native'
-import React from 'react'
+import { View, Text, Image,Dimensions } from 'react-native'
+import React,{useState,useEffect} from 'react'
 
 const Messages = () => {
+
+    const [dimensions, setDimensions] = useState({
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+      });
+  
+    useEffect(() => {
+      const subscription = Dimensions.addEventListener('change', ({ window }) => {
+        setDimensions({
+          width: window.width,
+          height: window.height,
+        });
+      });
+  
+      return () => subscription?.remove();
+    }, []);
+  
+  // Base dimensions (mobile: w-430 h-932, tablet: w-834 h-1194)
+    const BASE_WIDTH = 430;
+    const BASE_HEIGHT = 932;
+    const TABLET_WIDTH = 834;
+    const TABLET_HEIGHT = 1194;
+  
+    // Detect device type
+    const isTablet = dimensions.width >= 600 || dimensions.height >= 1000;
+  
+    // Use tablet base if detected
+    const currentBaseWidth = isTablet ? TABLET_WIDTH : BASE_WIDTH;
+    const currentBaseHeight = isTablet ? TABLET_HEIGHT : BASE_HEIGHT;
+  
+    // Detect orientation
+    const isLandscape = dimensions.width > dimensions.height;
+  
+    // Scale functions
+    const scaleWidth = (size: number) => (dimensions.width / currentBaseWidth) * size;
+    const scaleHeight = (size: number) => (dimensions.height / currentBaseHeight) * size;
+  
+    // Responsive scale factor (use the smaller scale to prevent overflow)
+    const scale = Math.min(
+      dimensions.width / currentBaseWidth,
+      dimensions.height / currentBaseHeight
+    );
 
   const messagess = [
     {
@@ -152,7 +194,7 @@ const Messages = () => {
               paddingVertical: 20,
               marginVertical: 5,
               paddingHorizontal: 15,
-              borderRadius: 15,
+              borderRadius: 20,
               maxWidth: message.sender === 'me' ? '80%' : '80%'
             }}>
               <Text style={{
@@ -163,7 +205,7 @@ const Messages = () => {
               <View style={{
                 flexDirection: 'row',
                 position: 'absolute',
-                right: 10,
+                right:message.sender==='me'? 10:15,
                 bottom:3,
                 alignItems: 'center',
                 gap: 5
