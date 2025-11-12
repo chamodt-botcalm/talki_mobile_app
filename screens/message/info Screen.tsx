@@ -84,7 +84,7 @@ const InfoScreen = () => {
         paddingHorizontal: scaleWidth(14),
         marginTop: scaleHeight(73)
       }}>
-        <Pressable onPress={() => router.push('/(tabs)/chat-screen')}>
+        <Pressable onPress={() =>isTablet? router.push('/(tabs)/chat-screen'):router.back()}>
           <View style={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -110,10 +110,12 @@ const InfoScreen = () => {
           color: '#D9FD00',
           fontSize: 18
         }}>Info</Text>
+        <Pressable onPress={() => router.push('/(message)/info-edit')}>
         <Text style={{
           color: '#D9FD00',
           fontSize: 18
         }}>Edit</Text>
+        </Pressable>
       </View>
 
       <Animated.View style={{

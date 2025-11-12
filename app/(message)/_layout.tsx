@@ -14,6 +14,7 @@ const messagelayout = () => {
        >
          <Tabs.Screen name="messagescreen" />
          <Tabs.Screen name="info-screen"/>
+         <Tabs.Screen name="info-edit"/>
        </Tabs>
   )
 }
