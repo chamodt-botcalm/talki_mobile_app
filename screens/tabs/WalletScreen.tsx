@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Image, View, Dimensions, Animated, BackHandler, Text } from 'react-native'
+import { Image, View, Dimensions, Animated, BackHandler, Text, ScrollView } from 'react-native'
 import { useRouter } from 'expo-router'
 import BottomNavigator from '../../components/BottomNavigator'
 import Tabs from '@/components/tabs'
@@ -199,7 +199,9 @@ const WalletScreen = () => {
                 marginTop:scaleHeight(71),
                 marginLeft:scaleWidth(18)
               }}>
+                <ScrollView>
                 <Tokens/>
+                </ScrollView>
               </View>
 
       </View>
