@@ -1,12 +1,20 @@
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { BackHandler, Dimensions, Image, Pressable, Text, TextInput, View } from 'react-native';
+import {
+    BackHandler,
+    Dimensions,
+    Image,
+    Pressable,
+    Text,
+    TextInput,
+    View,
+    StyleSheet
+} from 'react-native';
 
 export default function WelcomePage() {
     const router = useRouter();
     const [showCreateWallet, setShowCreateWallet] = useState(false);
     const [showImportAccount, setShowImportAccount] = useState(false);
-    
 
     const [dimensions, setDimensions] = useState({
         width: Dimensions.get('window').width,
@@ -20,7 +28,6 @@ export default function WelcomePage() {
                 height: window.height,
             });
         });
-
         return () => subscription?.remove();
     }, []);
 
@@ -30,298 +37,421 @@ export default function WelcomePage() {
                 setShowCreateWallet(false);
                 return true;
             }
-            else if(showImportAccount){
+            if (showImportAccount) {
                 setShowImportAccount(false);
                 return true;
             }
             return false;
         };
-
-        const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction
+        );
         return () => backHandler.remove();
     }, [showCreateWallet, showImportAccount]);
 
-    // Base dimensions (mobile: w-430 h-932, tablet: w-834 h-1194)
     const BASE_WIDTH = 430;
     const BASE_HEIGHT = 932;
+
     const TABLET_WIDTH = 834;
     const TABLET_HEIGHT = 1194;
 
-    // Detect device type
-    const isTablet = dimensions.width >= 600 || dimensions.height >= 1000; // Rough threshold for tablet
+    const isTablet = dimensions.width >= 600 || dimensions.height >= 1000;
 
-    // Use tablet base if detected
     const currentBaseWidth = isTablet ? TABLET_WIDTH : BASE_WIDTH;
     const currentBaseHeight = isTablet ? TABLET_HEIGHT : BASE_HEIGHT;
 
-    // Detect orientation
     const isLandscape = dimensions.width > dimensions.height;
 
-    // Scale functions
     const scaleWidth = (size: number) => (dimensions.width / currentBaseWidth) * size;
     const scaleHeight = (size: number) => (dimensions.height / currentBaseHeight) * size;
 
-    // Responsive scale factor (use the smaller scale to prevent overflow)
     const scale = Math.min(
         dimensions.width / currentBaseWidth,
         dimensions.height / currentBaseHeight
     );
 
-
     return (
-        <View style={{
-            flex: 1,
-            backgroundColor: '#232323',
-        }}>
+        
+        <View style={styles.container} >
+
+            {/* Top Background Image */}
             <Image
-                source={isLandscape ? require('../assets/images/Groupp2.png') : require('../assets/images/Groupp.png')}
-                style={{
-                    position: 'absolute',
-                    bottom: isTablet ? scaleHeight(600) : scaleHeight(422),
-                    right: isTablet ? scaleWidth(430) : scaleWidth(123),
+                source={
+                    isLandscape
+                        ? require('../assets/images/Groupp2.png')
+                        : require('../assets/images/Groupp.png')
+                }
+                style={[
+                    styles.topImage,
+                    {
+                        bottom: isTablet ? scaleHeight(600) : scaleHeight(422),
+                        right: isTablet ? scaleWidth(430) : scaleWidth(123),
+                    },
+                ]}
+            />
 
+            {/* Bottom Sheet */}
+            <View style={styles.bottomSheet}>
 
-                }} />
-
-            <View style={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: '50%',
-                backgroundColor: '#FFFFFF',
-                borderTopLeftRadius: 30,
-                borderTopRightRadius: 30,
-            }}>
-
+                {/* Floating rock image */}
                 <Image
-                    source={isTablet ? require('../assets/images/rockk2.png') : require('../assets/images/rockk.png')}
-                    style={{
-                        position: 'absolute',
-                        bottom: isTablet ? scaleHeight(380) : scaleHeight(308),
-                    }} />
-                <View style={{
-                    position: 'absolute',
-                    bottom: isTablet ? scaleHeight(650) : scaleHeight(536),
-                    left: isTablet ? scaleWidth(118) : scaleWidth(0),
-                    width: isTablet ? 'auto' : '100%',
-                    alignItems: isTablet ? 'flex-start' : 'center'
+                    source={
+                        isTablet
+                            ? require('../assets/images/rockk2.png')
+                            : require('../assets/images/rockk.png')
+                    }
+                    style={[
+                        styles.rockImage,
+                        { bottom: isTablet ? scaleHeight(380) : scaleHeight(308) },
+                    ]}
+                />
 
-                }}>
-                    <Text style={{
-                        fontSize: isTablet ? 170 * scale : 141 * scale,
-                        color: '#DBFF00',
-                        fontWeight: '600',
-
-
-                    }}>
+                {/* Logo */}
+                <View
+                    style={[
+                        styles.logoWrapper,
+                        {
+                            bottom: isTablet ? scaleHeight(650) : scaleHeight(536),
+                            left: isTablet ? scaleWidth(118) : 0,
+                            alignItems: isTablet ? 'flex-start' : 'center',
+                        },
+                    ]}
+                >
+                    <Text
+                        style={[
+                            styles.logoText,
+                            { fontSize: isTablet ? 170 * scale : 141 * scale },
+                        ]}
+                    >
                         talk
-                        <Text style={{
-                            fontSize: isTablet ? 277 * scale : 229 * scale
-                        }}>i</Text>
+                        <Text style={{ fontSize: isTablet ? 277 * scale : 229 * scale }}>
+                            i
+                        </Text>
                     </Text>
                 </View>
 
-                <Text style={{
-                    position: 'absolute',
-                    top: isTablet ? scaleHeight(134) : scaleHeight(70),
-                    left: 0,
-                    right: 0,
-                    textAlign: 'center',
-                    fontFamily: 'Inter',
-                    fontSize: scale * 40,
-                    fontWeight: 'bold'
-                }}> Welcome </Text>
+                {/* Welcome Text */}
+                <Text
+                    style={[
+                        styles.title,
+                        {
+                            top: isTablet ? scaleHeight(134) : scaleHeight(70),
+                            fontSize: scale * 40,
+                        },
+                    ]}
+                >
+                    Welcome
+                </Text>
 
+                {/* ================== IMPORT ACCOUNT ================== */}
+                {showImportAccount && (
+                    <View
+                        style={[
+                            styles.formWrapper,
+                            {
+                                top: isTablet ? scaleHeight(230) : scaleHeight(169),
+                                paddingHorizontal: isTablet
+                                    ? scaleWidth(172)
+                                    : scaleWidth(29.5),
+                            },
+                        ]}
+                    >
+                        <Text style={[styles.label, { fontSize: scale * 14 }]}>
+                            Private key
+                        </Text>
 
+                        <TextInput
+                            placeholder="Private key"
+                            placeholderTextColor="#A4A4A4"
+                            style={[
+                                styles.input,
+                                {
+                                    paddingVertical: scaleHeight(12),
+                                    paddingLeft: scaleWidth(12),
+                                    width: isTablet
+                                        ? scaleWidth(490)
+                                        : scaleWidth(371),
+                                    marginBottom: isTablet
+                                        ? scaleHeight(153)
+                                        : scaleHeight(80),
+                                },
+                            ]}
+                        />
 
-                {(() => {
-                    if (showImportAccount) {
-                        return (
-                            <>
-                                
-                                <View style={{
-                                    position: 'absolute',
-                                    top: isTablet ? scaleHeight(230) : scaleHeight(169),
-                                    flexDirection: 'column',
-                                    alignItems: 'flex-start',
-                                    width: '100%',
-                                    paddingHorizontal: isTablet ? scaleWidth(172) : scaleWidth(29.5),
-                                }}>
-                                    <Text style={{
-                                        marginBottom: scaleHeight(10),
-                                        fontSize: isTablet ? scale * 18 : scale * 14,
-                                        color: '#8C8C8C',
-                                        fontFamily: 'Inter',
-                                    }}>Private key</Text>
-                                    <TextInput
-                                        placeholder='Private key'
-                                        placeholderTextColor="#A4A4A4"
-                                        style={{
-                                            backgroundColor: '#F6F6F6',
-                                            paddingVertical: scaleHeight(12),
-                                            paddingLeft: scaleWidth(12),
-                                            borderRadius: scale * 8,
-                                            borderColor: '#EEE7E7',
-                                            borderWidth: 1,
-                                            width: isTablet ? scaleWidth(490) : scaleWidth(371),
-                                            marginBottom:isTablet? scaleHeight(153): scaleHeight(80),
-                                            fontFamily: 'Inter',
-                                            fontSize: isTablet ? scale * 16 : scale * 14,
-                                            
-                                        }} />
-                                    <Pressable
-                                        style={{
-                                            backgroundColor: '#DBFF00',
-                                            width: isTablet ? scaleWidth(490) : scaleWidth(371),
-                                            height:isTablet? scaleHeight(73): scaleHeight(60),
-                                            borderRadius: scale * 8,
-                                            justifyContent: 'center'
-                                        }}
-                                        onPress={() => router.push('/connect-wallet')}
-                                    >
-                                        <Text style={{
-                                            color: 'black',
-                                            fontSize: isTablet ? scale * 20 : scale * 16,
-                                            textAlign: 'center',
-                                            fontFamily: 'Inter',
-                                            fontWeight: '600'
-                                        }}>
-                                            Import
-                                        </Text>
-                                    </Pressable>
-                                </View>
-                            </>
-                        );
-                    } else if (showCreateWallet) {
-                        return (
-                            <>
-                                <View style={{
-                                    position: 'absolute',
+                        <Pressable
+                            style={[
+                                styles.button,
+                                {
+                                    width: isTablet
+                                        ? scaleWidth(490)
+                                        : scaleWidth(371),
+                                    height: isTablet
+                                        ? scaleHeight(73)
+                                        : scaleHeight(60),
+                                },
+                            ]}
+                            onPress={() => router.push('/connect-wallet')}
+                        >
+                            <Text style={[styles.buttonText, { fontSize: scale * 16 }]}>
+                                Import
+                            </Text>
+                        </Pressable>
+                    </View>
+                )}
+
+                {/* ================== CREATE WALLET ================== */}
+                {showCreateWallet && (
+                    <>
+                        <View
+                            style={[
+                                styles.cameraWrapper,
+                                {
                                     top: isTablet ? scaleHeight(255) : scaleHeight(143),
-                                    width: '100%',
-                                    alignItems: 'center'
-                                }}>
-                                    <Image source={require('../assets/images/Camera.png')} />
-                                </View>
-                                <View style={{
-                                    position: 'absolute',
+                                },
+                            ]}
+                        >
+                            <Image source={require('../assets/images/Camera.png')} />
+                        </View>
+
+                        <View
+                            style={[
+                                styles.formWrapper,
+                                {
                                     top: isTablet ? scaleHeight(398) : scaleHeight(229),
-                                    flexDirection: 'column',
-                                    alignItems: 'flex-start',
-                                    width: '100%',
-                                    paddingHorizontal: isTablet ? scaleWidth(172) : scaleWidth(29.5),
-                                }}>
-                                    <Text style={{
-                                        marginBottom: scaleHeight(10),
-                                        fontSize: isTablet ? scale * 18 : scale * 14,
-                                        color: '#8C8C8C',
-                                        fontFamily: 'Inter',
-                                    }}>Wallet Address</Text>
-                                    <TextInput
-                                        placeholder='0xb96cc255470............599'
-                                        placeholderTextColor="#A4A4A4"
-                                        style={{
-                                            backgroundColor: '#F6F6F6',
-                                            paddingVertical: scaleHeight(12),
-                                            paddingLeft: scaleWidth(12),
-                                            borderRadius: scale * 8,
-                                            borderColor: '#EEE7E7',
-                                            borderWidth: 1,
-                                            width: isTablet ? scaleWidth(490) : scaleWidth(371),
-                                            marginBottom: scaleHeight(20),
-                                            fontFamily: 'Inter',
-                                            fontSize: isTablet ? scale * 16 : scale * 14,
-                                        }} />
-                                    <Pressable
-                                        style={{
-                                            backgroundColor: '#DBFF00',
-                                            width: isTablet ? scaleWidth(490) : scaleWidth(371),
-                                            height: scaleHeight(60),
-                                            borderRadius: scale * 8,
-                                            justifyContent: 'center'
-                                        }}
-                                        onPress={() => router.push('/user-account')}
-                                    >
-                                        <Text style={{
-                                            color: 'black',
-                                            fontSize: isTablet ? scale * 18 : scale * 16,
-                                            textAlign: 'center',
-                                            fontFamily: 'Inter',
-                                            fontWeight: '600'
-                                        }}>
-                                            Create Wallet
-                                        </Text>
-                                    </Pressable>
-                                </View>
-                            </>
-                        );
-                    } else {
-                        return (
-                            <>
-                                <Pressable
-                                    style={{
-                                        position: 'absolute',
-                                        top: isTablet ? scaleHeight(403) : scaleHeight(181),
-                                        left: isTablet ? (dimensions.width - scaleWidth(490)) / 2 : (dimensions.width - scaleWidth(371)) / 2,
-                                        backgroundColor: '#DBFF00',
-                                        width: isTablet ? scaleWidth(490) : scaleWidth(371),
+                                    paddingHorizontal: isTablet
+                                        ? scaleWidth(172)
+                                        : scaleWidth(29.5),
+                                },
+                            ]}
+                        >
+                            <Text style={[styles.label, { fontSize: scale * 14 }]}>
+                                Wallet Address
+                            </Text>
+
+                            <TextInput
+                                placeholder="0xb96cc255470............599"
+                                placeholderTextColor="#A4A4A4"
+                                style={[
+                                    styles.input,
+                                    {
+                                        paddingVertical: scaleHeight(12),
+                                        paddingLeft: scaleWidth(12),
+                                        width: isTablet
+                                            ? scaleWidth(490)
+                                            : scaleWidth(371),
+                                        marginBottom: scaleHeight(20),
+                                    },
+                                ]}
+                            />
+
+                            <Pressable
+                                style={[
+                                    styles.button,
+                                    {
+                                        width: isTablet
+                                            ? scaleWidth(490)
+                                            : scaleWidth(371),
                                         height: scaleHeight(60),
-                                        borderRadius: scale * 5,
-                                        justifyContent: 'center'
-                                    }}
-                                    onPress={() => alert('Button Pressed!')}
-                                >
-                                    <Text style={{ color: 'black', fontSize: scale * 16, textAlign: 'center', fontFamily: 'Inter', }}>
-                                        Connect Wallet
-                                    </Text>
-                                </Pressable>
-                                <View style={{
+                                    },
+                                ]}
+                                onPress={() => router.push('/user-account')}
+                            >
+                                <Text style={[styles.buttonText, { fontSize: scale * 16 }]}>
+                                    Create Wallet
+                                </Text>
+                            </Pressable>
+                        </View>
+                    </>
+                )}
+
+                {/* ================== DEFAULT BUTTONS ================== */}
+                {!showCreateWallet && !showImportAccount && (
+                    <>
+                        <Pressable
+                            style={[
+                                styles.button,
+                                {
                                     position: 'absolute',
+                                    top: isTablet ? scaleHeight(403) : scaleHeight(181),
+                                    left:
+                                        (dimensions.width -
+                                            (isTablet
+                                                ? scaleWidth(490)
+                                                : scaleWidth(371))) /
+                                        2,
+                                    width: isTablet
+                                        ? scaleWidth(490)
+                                        : scaleWidth(371),
+                                    height: scaleHeight(60),
+                                },
+                            ]}
+                            onPress={() => alert('Button Pressed!')}
+                        >
+                            <Text style={[styles.buttonText, { fontSize: scale * 16 }]}>
+                                Connect Wallet
+                            </Text>
+                        </Pressable>
+
+                        <View
+                            style={[
+                                styles.row,
+                                {
                                     top: isTablet ? scaleHeight(480) : scaleHeight(253),
-                                    left: 0,
-                                    right: 0,
-                                    flexDirection: 'row',
-                                    justifyContent: 'center',
-                                    gap: isTablet ? scaleWidth(15) : scaleWidth(12),
-                                    paddingHorizontal: scaleWidth(30)
-                                }}>
-                                    <Pressable
-                                        style={{
-                                            borderColor: '#DBFF00',
-                                            borderWidth: scale * 2,
-                                            width: isTablet ? scaleWidth(238) : scaleWidth(180),
-                                            height: scaleHeight(60),
-                                            borderRadius: scale * 7,
-                                            justifyContent: 'center'
-                                        }}
-                                        onPress={() => setShowCreateWallet(true)}
-                                    >
-                                        <Text style={{ color: 'black', fontSize: scale * 16, textAlign: 'center', fontFamily: 'Inter', }}>
-                                            Create Wallet
-                                        </Text>
-                                    </Pressable>
-                                    <Pressable
-                                        style={{
-                                            borderColor: '#DBFF00',
-                                            borderWidth: scale * 2,
-                                            width: isTablet ? scaleWidth(238) : scaleWidth(180),
-                                            height: scaleHeight(60),
-                                            borderRadius: scale * 7,
-                                            justifyContent: 'center'
-                                        }}
-                                        onPress={() => setShowImportAccount(true)}
-                                    >
-                                        <Text style={{ color: 'black', fontSize: scale * 16, textAlign: 'center', fontFamily: 'Inter', }}>
-                                            Import Account
-                                        </Text>
-                                    </Pressable>
-                                </View>
-                            </>
-                        );
-                    }
-                })()}
+                                },
+                            ]}
+                        >
+                            {/* Create Wallet */}
+                            <Pressable
+                                style={[
+                                    styles.outlineButton,
+                                    {
+                                        width: isTablet
+                                            ? scaleWidth(238)
+                                            : scaleWidth(180),
+                                        height: scaleHeight(60),
+                                    },
+                                ]}
+                                onPress={() => setShowCreateWallet(true)}
+                            >
+                                <Text style={[styles.outlineText, { fontSize: scale * 16 }]}>
+                                    Create Wallet
+                                </Text>
+                            </Pressable>
+
+                            {/* Import */}
+                            <Pressable
+                                style={[
+                                    styles.outlineButton,
+                                    {
+                                        width: isTablet
+                                            ? scaleWidth(238)
+                                            : scaleWidth(180),
+                                        height: scaleHeight(60),
+                                    },
+                                ]}
+                                onPress={() => setShowImportAccount(true)}
+                            >
+                                <Text style={[styles.outlineText, { fontSize: scale * 16 }]}>
+                                    Import Account
+                                </Text>
+                            </Pressable>
+                        </View>
+                    </>
+                )}
             </View>
         </View>
-    )
+        
+    );
 }
+
+/* ========================================================= */
+/* ======================= STYLES ========================== */
+/* ========================================================= */
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#232323',
+        overflow:'hidden'
+    },
+
+    topImage: {
+        position: 'absolute',
+    },
+
+    bottomSheet: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: '50%',
+        backgroundColor: '#FFF',
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+    },
+
+    rockImage: {
+        position: 'absolute',
+    },
+
+    logoWrapper: {
+        position: 'absolute',
+        width: '100%',
+    },
+
+    logoText: {
+        color: '#DBFF00',
+        fontWeight: '600',
+    },
+
+    title: {
+        position: 'absolute',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        left: 0,
+        right: 0,
+    },
+
+    formWrapper: {
+        position: 'absolute',
+        width: '100%',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+    },
+
+    label: {
+        color: '#8C8C8C',
+        marginBottom: 6,
+        fontFamily: 'Inter',
+    },
+
+    input: {
+        backgroundColor: '#F6F6F6',
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#EEE7E7',
+        fontFamily: 'Inter',
+    },
+
+    button: {
+        backgroundColor: '#DBFF00',
+        justifyContent: 'center',
+        borderRadius: 8,
+    },
+
+    buttonText: {
+        textAlign: 'center',
+        color: 'black',
+        fontWeight: '600',
+        fontFamily: 'Inter',
+    },
+
+    cameraWrapper: {
+        position: 'absolute',
+        width: '100%',
+        alignItems: 'center',
+    },
+
+    row: {
+        position: 'absolute',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        width: '100%',
+        gap: 12,
+    },
+
+    outlineButton: {
+        borderColor: '#DBFF00',
+        borderWidth: 2,
+        justifyContent: 'center',
+        borderRadius: 8,
+    },
+
+    outlineText: {
+        textAlign: 'center',
+        color: '#000',
+        fontFamily: 'Inter',
+        fontWeight: '600',
+    },
+});

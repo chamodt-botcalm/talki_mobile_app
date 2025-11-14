@@ -5,10 +5,11 @@ import BottomNavigator from '../../components/BottomNavigator'
 import Tabs from '@/components/tabs'
 import Tokens from '@/components/tokens'
 
-const WalletScreen = () => {
+const WalletScreen = ({name}: {name: string}) => {
 
   const router = useRouter();
   const [selectedChat, setSelectedChat] = useState<string | null>(null);
+  const [totalSum, setTotalSum] = useState<number>(0);
 
   const [dimensions, setDimensions] = useState({
     width: Dimensions.get('window').width,
@@ -82,11 +83,31 @@ const WalletScreen = () => {
       width: '100%',
       height: '100%',
     }}>
+
+      <View style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: scaleWidth(14),
+        marginTop: scaleHeight(73),
+      }}>
+        <Text style={{
+          color:'#D9FD00',
+          fontSize:16
+        }}>Wallet</Text>
+        <Image source={require('../../assets/images/qrcode.png')}
+        style={{
+          width: scaleWidth(32),
+          height: scaleHeight(32),
+          tintColor:'#D9FD00'
+        }}
+        />
+      </View>
+
       <View style={{
         backgroundColor: '#FFFFFF',
         width: '100%',
         position: 'absolute',
-        height: scaleHeight(811),
+        height: isTablet?scaleHeight(1033):scaleHeight(811),
         bottom: 0,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
@@ -126,6 +147,8 @@ const WalletScreen = () => {
             }}>
               <Image source={require('../../assets/images/jon.jpg')}
                 style={{
+                  borderColor:'#D9FD00',
+                  borderWidth:2,
                   borderRadius: 50,
                   width: scaleWidth(46),
                   height: scaleWidth(46),
@@ -195,12 +218,30 @@ const WalletScreen = () => {
               }}>
                 <Tabs/>
               </View>
+
+              {/* Total Sum */}
               <View style={{
-                marginTop:scaleHeight(71),
-                marginLeft:scaleWidth(18)
+                marginTop:scaleHeight(17),
+                marginLeft:scaleWidth(32),
               }}>
-                <ScrollView>
-                <Tokens/>
+                <Text style={{
+                  fontSize: 20,
+                }}>${totalSum.toLocaleString()}</Text>
+              </View>
+
+              
+              <View style={{
+                marginTop:scaleHeight(30),
+                marginLeft:scaleWidth(18),
+                flex: 1
+              }}>
+                <ScrollView 
+                  contentContainerStyle={{
+                    paddingBottom: 110
+                  }}
+                  showsVerticalScrollIndicator={false}
+                >
+                <Tokens onTotalSumChange={setTotalSum}/>
                 </ScrollView>
               </View>
 
