@@ -98,7 +98,8 @@ const WalletScreen = ({name}: {name: string}) => {
         style={{
           width: scaleWidth(32),
           height: scaleHeight(32),
-          tintColor:'#D9FD00'
+          tintColor:'#D9FD00',
+          resizeMode:'contain'
         }}
         />
       </View>

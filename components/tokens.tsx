@@ -91,6 +91,9 @@ const coins=[
   },
   {
     id: '13', coinName: 'Uniswap', coinImage: tokenImage, numberOfCoins:'800 UNI', total:'$4,800.00'
+  },
+  {
+    id: '14', coinName: 'Uniswap', coinImage: tokenImage, numberOfCoins:'800 UNI', total:'$4,800.00'
   }
 
 ]

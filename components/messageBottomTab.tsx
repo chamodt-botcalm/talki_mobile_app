@@ -1,10 +1,15 @@
-import { usePathname, useRouter } from 'expo-router';
-import React from 'react';
+import { useLocalSearchParams, usePathname, useRouter } from 'expo-router';
+import React, { useState, useEffect } from 'react';
 import { Image, TextInput, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import MessageCountBadge from './messagecountbadge';
 
 const MessageBottomTab = () => {
   const { width, height } = useWindowDimensions();
   const dimensions = { width, height };
+
+  const [navigationReady, setNavigationReady] = useState(false);
+  const [currentPath, setCurrentPath] = useState('');
+  const [totalMessages, setTotalMessages] = useState(0);
 
   // Base dimensions
   const BASE_WIDTH = 430;
@@ -18,18 +23,33 @@ const MessageBottomTab = () => {
 
   const scaleWidth = (size: number) => (dimensions.width / currentBaseWidth) * size;
   const scaleHeight = (size: number) => (dimensions.height / currentBaseHeight) * size;
-  const scale = Math.min(
-    dimensions.width / currentBaseWidth,
-    dimensions.height / currentBaseHeight
-  );
 
-  const router = useRouter();
-  const pathname = usePathname();
-  const isActive = (route: string) => pathname === route.replace('/(tabs)', '');
+  // Safely get navigation hooks
+  let router: any = null;
+  let pathname: string = '';
+  let params: any = null;
+
+  try {
+    router = useRouter();
+    pathname = usePathname();
+    params = useLocalSearchParams();
+  } catch {
+    // Navigation not ready
+  }
+
+  useEffect(() => {
+    if (router && pathname !== undefined) {
+      setNavigationReady(true);
+      setCurrentPath(pathname);
+      setTotalMessages(Number(params?.totalMessages) || 0);
+    }
+  }, [router, pathname, params]);
+
+  const isActive = (route: string) => currentPath === route.replace('/(tabs)', '');
 
   const tabItems = [
     { route: '/(tabs)/wallet' as '/(tabs)/wallet', icon: require('../assets/images/wallet.png') },
-    { route: '/(tabs)/chat-screen' as '/(tabs)/chat-screen', icon: require('../assets/images/communications.png') },
+    { route: '/(tabs)/chat-screen' as '/(tabs)/chat-screen', icon: require('../assets/images/communications.png'), iconn: require('../assets/images/num17.png') },
     { route: '/(tabs)/contact' as '/(tabs)/contact', icon: require('../assets/images/user.png') },
     { route: '/(tabs)/settings' as '/(tabs)/settings', icon: require('../assets/images/setting.png') },
   ];
@@ -48,7 +68,7 @@ const MessageBottomTab = () => {
         justifyContent: 'space-between',
         paddingHorizontal: scaleWidth(12),
         height: scaleHeight(90),
-        
+
       }}
     >
 
@@ -59,7 +79,7 @@ const MessageBottomTab = () => {
           alignItems: 'center',
           justifyContent: 'center',
           gap: scaleWidth(69),
-          width:'50%'
+          width: '50%'
         }}
       >
         {tabItems.map((item, index) => {
@@ -67,21 +87,28 @@ const MessageBottomTab = () => {
           return (
             <TouchableOpacity
               key={index}
-              onPress={() => router.push(item.route)}
+              onPress={() => navigationReady && router?.push(item.route)}
               style={{
                 backgroundColor: active ? 'black' : 'transparent',
                 borderRadius: 30,
                 padding: scaleWidth(6),
               }}
             >
-              <Image
-                source={item.icon}
-                style={{
-                  width: scaleWidth(26),
-                  height: scaleHeight(26),
-                  tintColor: active ? 'white' : '#858E99',
-                }}
-              />
+              <View style={{ position: 'relative' }}>
+                <Image
+                  source={item.icon}
+                  style={{
+                    width: 27,
+                    height: 27,
+                    tintColor: active ? 'white' : undefined,
+                  }}
+                />
+                {item.iconn && totalMessages > 0 && (
+                  <View style={{ position: 'absolute', top: -10, right: -10 }}>
+                    <MessageCountBadge />
+                  </View>
+                )}
+              </View>
             </TouchableOpacity>
           );
         })}
@@ -103,6 +130,7 @@ const MessageBottomTab = () => {
             height: scaleHeight(28),
             tintColor: '#858E99',
             marginRight: scaleWidth(8),
+            resizeMode: 'contain',
           }}
         />
 
@@ -127,6 +155,8 @@ const MessageBottomTab = () => {
             height: scaleHeight(30),
             tintColor: '#858E99',
             marginLeft: scaleWidth(8),
+            resizeMode: 'contain',
+
           }}
         />
       </View>

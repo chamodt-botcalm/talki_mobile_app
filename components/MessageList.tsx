@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
-import React, { useEffect, useState } from 'react';
-import { Animated, BackHandler, Dimensions, Image, Pressable, Text, View, StyleSheet } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Animated, BackHandler, Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 interface MessageListProps {
@@ -12,10 +12,30 @@ const MessageList = ({ onChatSelect }: MessageListProps) => {
 
   const [messageData, setMessageData] = useState([
     { id: '1', userName: 'sarah_k', userid: '0xb96cc255470............599', userImage: 'https://randomuser.me/api/portraits/women/1.jpg', message: 'GIF', hasSeen: true, hasPin: true, unreadCount: 0, date: '9/29' },
-    { id: '2', userName: 'sarah_k', userid: '0xb96cc255470............599', userImage: 'https://randomuser.me/api/portraits/women/1.jpg', message: 'GIF', hasSeen: false, hasPin: true, unreadCount: 0, date: '9/29' },
+    { id: '2', userName: 'sarah_k', userid: '0xb96cc255470............599', userImage: 'https://randomuser.me/api/portraits/women/1.jpg', message: 'GIF', hasSeen: false, hasPin: true, unreadCount: 2, date: '9/29' },
     { id: '3', userName: 'sarah_k', userid: '0xb96cc255470............599', userImage: 'https://randomuser.me/api/portraits/women/1.jpg', message: 'GIF', hasSeen: true, hasPin: false, unreadCount: 0, date: '9/29' },
+    { id: '4', userName: 'sarah_k', userid: '0xb96cc255470............599', userImage: 'https://randomuser.me/api/portraits/women/1.jpg', message: 'GIF', hasSeen: true, hasPin: false, unreadCount: 0, date: '9/29' },
+    { id: '5', userName: 'sarah_k', userid: '0xb96cc255470............599', userImage: 'https://randomuser.me/api/portraits/women/1.jpg', message: 'GIF', hasSeen: false, hasPin: true, unreadCount: 0, date: '9/29' },
+    { id: '6', userName: 'sarah_k', userid: '0xb96cc255470............599', userImage: 'https://randomuser.me/api/portraits/women/1.jpg', message: 'GIF', hasSeen: true, hasPin: true, unreadCount: 0, date: '9/29' },
+    { id: '7', userName: 'sarah_k', userid: '0xb96cc255470............599', userImage: 'https://randomuser.me/api/portraits/women/1.jpg', message: 'GIF', hasSeen: false, hasPin: true, unreadCount: 2, date: '9/29' },
+    { id: '8', userName: 'sarah_k', userid: '0xb96cc255470............599', userImage: 'https://randomuser.me/api/portraits/women/1.jpg', message: 'GIF', hasSeen: true, hasPin: false, unreadCount: 0, date: '9/29' },
+    { id: '9', userName: 'sarah_k', userid: '0xb96cc255470............599', userImage: 'https://randomuser.me/api/portraits/women/1.jpg', message: 'GIF', hasSeen: true, hasPin: false, unreadCount: 0, date: '9/29' },
+    { id: '10', userName: 'sarah_k', userid: '0xb96cc255470............599', userImage: 'https://randomuser.me/api/portraits/women/1.jpg', message: 'GIF', hasSeen: false, hasPin: true, unreadCount: 0, date: '9/29' },
+    { id: '11', userName: 'sarah_k', userid: '0xb96cc255470............599', userImage: 'https://randomuser.me/api/portraits/women/1.jpg', message: 'GIF', hasSeen: false, hasPin: true, unreadCount: 5, date: '9/29' },
+
+
     // ... (continue your items)
   ]);
+
+  const totalMessages = messageData.reduce((total, msg) => total + msg.unreadCount, 0);
+
+  useEffect(() => {
+    try {
+      router.setParams({ totalMessages: totalMessages });
+    } catch (error) {
+      // Navigation not ready yet
+    }
+  }, [totalMessages]);
 
   const [dimensions, setDimensions] = useState({
     width: Dimensions.get('window').width,
@@ -139,6 +159,7 @@ const MessageList = ({ onChatSelect }: MessageListProps) => {
                       justifyContent: 'space-between',
                       height: 62,
                       paddingVertical: 4,
+                      flexDirection: 'column',
                     }}>
                       <View style={{
                         flexDirection: 'row',

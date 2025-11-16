@@ -1,8 +1,13 @@
-import { usePathname, useRouter } from 'expo-router'
+import { useLocalSearchParams, usePathname, useRouter } from 'expo-router'
 import React from 'react'
 import { Image, TouchableOpacity, View } from 'react-native'
+import MessageCountBadge from './messagecountbadge'
 
 export default function BottomNavigator() {
+
+  const params = useLocalSearchParams();
+  const totalMessages = Number(params.totalMessages) || 0;
+
   const router = useRouter()
   const pathname = usePathname()
 
@@ -10,7 +15,7 @@ export default function BottomNavigator() {
 
   const tabItems = [
     { route: '/(tabs)/wallet' as '/(tabs)/wallet', icon: require('../assets/images/wallet.png') },
-    { route: '/(tabs)/chat-screen' as '/(tabs)/chat-screen', icon: require('../assets/images/communications.png') },
+    { route: '/(tabs)/chat-screen' as '/(tabs)/chat-screen', icon: require('../assets/images/communications.png'), iconn: require('../assets/images/num17.png') },
     { route: '/(tabs)/contact' as '/(tabs)/contact', icon: require('../assets/images/user.png') },
     { route: '/(tabs)/settings' as '/(tabs)/settings', icon: require('../assets/images/setting.png') },
   ]
@@ -41,14 +46,21 @@ export default function BottomNavigator() {
               padding: 10,
             }}
           >
-            <Image
-              source={item.icon}
-              style={{
-                width: 27,
-                height: 27,
-                tintColor: active ? 'white' : undefined,
-              }}
-            />
+            <View style={{ position: 'relative' }}>
+              <Image
+                source={item.icon}
+                style={{
+                  width: 27,
+                  height: 27,
+                  tintColor: active ? 'white' : undefined,
+                }}
+              />
+              {item.iconn && totalMessages > 0 && (
+                <View style={{ position: 'absolute', top: -15, right: -15 }}>
+                <MessageCountBadge />
+                </View>
+              )}
+            </View>
           </TouchableOpacity>
         )
       })}
