@@ -1,6 +1,6 @@
 import { useLocalSearchParams, usePathname, useRouter } from 'expo-router'
 import React from 'react'
-import { Image, TouchableOpacity, View } from 'react-native'
+import { Image, TouchableOpacity, View, Text} from 'react-native'
 import MessageCountBadge from './messagecountbadge'
 
 export default function BottomNavigator() {
@@ -14,10 +14,10 @@ export default function BottomNavigator() {
   const isActive = (route: string) => pathname === route.replace('/(tabs)', '')
 
   const tabItems = [
-    { route: '/(tabs)/wallet' as '/(tabs)/wallet', icon: require('../assets/images/wallet.png') },
-    { route: '/(tabs)/chat-screen' as '/(tabs)/chat-screen', icon: require('../assets/images/communications.png'), iconn: require('../assets/images/num17.png') },
-    { route: '/(tabs)/contact' as '/(tabs)/contact', icon: require('../assets/images/user.png') },
-    { route: '/(tabs)/settings' as '/(tabs)/settings', icon: require('../assets/images/setting.png') },
+    { route: '/(tabs)/wallet' as '/(tabs)/wallet', icon: require('../assets/images/wallet.png'), name: 'Wallet'},
+    { route: '/(tabs)/chat-screen' as '/(tabs)/chat-screen', icon: require('../assets/images/communications.png'), iconn: require('../assets/images/num17.png'), name: 'Chats'},
+    { route: '/(tabs)/contact' as '/(tabs)/contact', icon: require('../assets/images/user.png') ,name: 'Contacts'},
+    { route: '/(tabs)/settings' as '/(tabs)/settings', icon: require('../assets/images/setting.png') ,name: 'Settings'},
   ]
 
   return (
@@ -37,6 +37,10 @@ export default function BottomNavigator() {
       {tabItems.map((item, index) => {
         const active = isActive(item.route)
         return (
+          <View style={{
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}>
           <TouchableOpacity
             key={index}
             onPress={() => router.push(item.route)}
@@ -45,7 +49,7 @@ export default function BottomNavigator() {
               borderRadius: 30,
               padding: 10,
             }}
-          >
+          > 
             <View style={{ position: 'relative' }}>
               <Image
                 source={item.icon}
@@ -61,7 +65,10 @@ export default function BottomNavigator() {
                 </View>
               )}
             </View>
+            
           </TouchableOpacity>
+           <Text>{item.name}</Text>
+           </View>
         )
       })}
     </View>

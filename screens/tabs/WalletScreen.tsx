@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router'
 import BottomNavigator from '../../components/BottomNavigator'
 import Tabs from '@/components/tabs'
 import Tokens from '@/components/tokens'
+import ProfilePic from '@/components/profilepic'
 
 const WalletScreen = ({name}: {name: string}) => {
 
@@ -146,16 +147,10 @@ const WalletScreen = ({name}: {name: string}) => {
               alignItems: 'center',
               gap: scaleWidth(10),
             }}>
-              <Image source={require('../../assets/images/jon.jpg')}
-                style={{
-                  borderColor:'#D9FD00',
-                  borderWidth:2,
-                  borderRadius: 50,
-                  width: scaleWidth(46),
-                  height: scaleWidth(46),
-                  
-                }}
-              />
+              <ProfilePic 
+              width={46}
+              height={46}
+              borderWidth={2}/>
               <Text>Jon Smith</Text>
             </View>
             <View style={{
@@ -226,7 +221,9 @@ const WalletScreen = ({name}: {name: string}) => {
                 marginLeft:scaleWidth(32),
               }}>
                 <Text style={{
-                  fontSize: 20,
+                  fontSize:isTablet? 27: 20,
+                  fontWeight:'bold'
+
                 }}>${totalSum.toLocaleString()}</Text>
               </View>
 

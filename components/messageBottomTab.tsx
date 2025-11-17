@@ -1,6 +1,6 @@
 import { useLocalSearchParams, usePathname, useRouter } from 'expo-router';
 import React, { useState, useEffect } from 'react';
-import { Image, TextInput, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import { Image, TextInput, TouchableOpacity, useWindowDimensions, View, Text } from 'react-native';
 import MessageCountBadge from './messagecountbadge';
 
 const MessageBottomTab = () => {
@@ -48,10 +48,10 @@ const MessageBottomTab = () => {
   const isActive = (route: string) => currentPath === route.replace('/(tabs)', '');
 
   const tabItems = [
-    { route: '/(tabs)/wallet' as '/(tabs)/wallet', icon: require('../assets/images/wallet.png') },
-    { route: '/(tabs)/chat-screen' as '/(tabs)/chat-screen', icon: require('../assets/images/communications.png'), iconn: require('../assets/images/num17.png') },
-    { route: '/(tabs)/contact' as '/(tabs)/contact', icon: require('../assets/images/user.png') },
-    { route: '/(tabs)/settings' as '/(tabs)/settings', icon: require('../assets/images/setting.png') },
+     { route: '/(tabs)/wallet' as '/(tabs)/wallet', icon: require('../assets/images/wallet.png'), name: 'Wallet'},
+    { route: '/(tabs)/chat-screen' as '/(tabs)/chat-screen', icon: require('../assets/images/communications.png'), iconn: require('../assets/images/num17.png'), name: 'Chats'},
+    { route: '/(tabs)/contact' as '/(tabs)/contact', icon: require('../assets/images/user.png') ,name: 'Contacts'},
+    { route: '/(tabs)/settings' as '/(tabs)/settings', icon: require('../assets/images/setting.png') ,name: 'Settings'},
   ];
 
   return (
@@ -85,6 +85,10 @@ const MessageBottomTab = () => {
         {tabItems.map((item, index) => {
           const active = isActive(item.route);
           return (
+            <View style={{
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                      }}>
             <TouchableOpacity
               key={index}
               onPress={() => navigationReady && router?.push(item.route)}
@@ -110,6 +114,8 @@ const MessageBottomTab = () => {
                 )}
               </View>
             </TouchableOpacity>
+             <Text>{item.name}</Text>
+            </View>
           );
         })}
       </View>
