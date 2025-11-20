@@ -1,10 +1,9 @@
 import MessageList from '@/components/MessageList';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Animated, BackHandler, Dimensions, ScrollView, View, Image } from 'react-native';
+import { Animated, BackHandler, Dimensions, ScrollView, View, Image, Pressable, TouchableOpacity } from 'react-native';
 import StoryView from '../../components/StoryView';
 import MessageScreen from '../message/Message Screen';
-import MessageBottomTab from '../../components/messageBottomTab';
 import PullBar from '@/components/pullbar';
 
 export default function ChatScreen() {
@@ -93,12 +92,14 @@ export default function ChatScreen() {
                     top: scaleHeight(45),
                     gap: scaleWidth(10),
                 }}>
+                    <TouchableOpacity onPress={()=>router.push('/(tabs)/call-screen')}>
                     <Image source={require('../../assets/images/telephone.png')}
                         style={{
                             width: 30,
                             height: 30,
                             tintColor: '#D9FD00'
                         }} />
+                    </TouchableOpacity>
 
                     <Image source={require('../../assets/images/edit.png')}
                         style={{
@@ -181,12 +182,14 @@ export default function ChatScreen() {
                 top:dimensions.height * 0.05,
                 gap: scaleWidth(10),
             }}>
+                <TouchableOpacity onPress={()=>router.push('/(tabs)/call-screen')}>
                 <Image source={require('../../assets/images/telephone.png')}
                     style={{
                         width: 17,
                         height: 17,
                         tintColor: '#D9FD00'
                     }} />
+                </TouchableOpacity>
 
                 <Image source={require('../../assets/images/edit.png')}
                     style={{
