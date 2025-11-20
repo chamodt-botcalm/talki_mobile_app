@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'expo-router'
 import BlackBackground from '@/components/main/black'
 import WhiteBackground from '@/components/main/white'
+import CallList from '@/components/call/CallList'
 
 const CallScreen = () => {
 
@@ -64,7 +65,7 @@ const CallScreen = () => {
     <View>
       <BlackBackground>
         <WhiteBackground height={scaleHeight(811)}>
-
+          <CallList/>
         </WhiteBackground>
       </BlackBackground>
     </View>
