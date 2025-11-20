@@ -5,6 +5,7 @@ import BottomNavigator from '../../components/BottomNavigator'
 import Tabs from '@/components/tabs'
 import Tokens from '@/components/tokens'
 import ProfilePic from '@/components/profilepic'
+import PullBar from '@/components/pullbar'
 
 const WalletScreen = ({name}: {name: string}) => {
 
@@ -115,15 +116,8 @@ const WalletScreen = ({name}: {name: string}) => {
         borderTopRightRadius: 30,
         overflow: 'hidden',
       }}>
-        <View style={{
-          backgroundColor: '#AEAEB2',
-          height: scaleHeight(5),
-          width: scaleWidth(83),
-          borderRadius: 6,
-          alignSelf: 'center',
-          marginTop: isTablet ? scaleHeight(20) : scaleHeight(11)
-
-        }} />
+        <View style={{alignSelf:'center', marginTop:scaleHeight(11)}}>
+        <PullBar width={scaleWidth(62.5)} height={scaleHeight(6)}/></View>
 
         <View style={{
           flexDirection: 'column',

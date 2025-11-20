@@ -5,6 +5,7 @@ import { Animated, BackHandler, Dimensions, ScrollView, View, Image } from 'reac
 import StoryView from '../../components/StoryView';
 import MessageScreen from '../message/Message Screen';
 import MessageBottomTab from '../../components/messageBottomTab';
+import PullBar from '@/components/pullbar';
 
 export default function ChatScreen() {
 
@@ -213,6 +214,8 @@ export default function ChatScreen() {
                 borderTopRightRadius: 30,
                 overflow: 'hidden',
             }}>
+                <View style={{alignSelf:'center', marginTop:scaleHeight(11)}}>
+        <PullBar width={scaleWidth(62.5)} height={scaleHeight(6)}/></View>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <MessageList />
                 </ScrollView>

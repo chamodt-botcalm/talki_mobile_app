@@ -4,6 +4,8 @@ import { router } from 'expo-router';
 import ProfilePic from '@/components/profilepic';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SettingsScreenIcon from '@/components/settingsScreen/settingsScreenIcon';
+import PullBar from '@/components/pullbar';
+import Modal from 'react-native-modal';
 
 const SettingsScreen = () => {
 
@@ -118,7 +120,8 @@ const SettingsScreen = () => {
       tintColor: '#D9FD00'
     },
     text:{
-      color:'#D9FD00'
+      color:'#D9FD00',
+      fontSize:18
     },
     section: {
       width: '100%',
@@ -180,12 +183,15 @@ const SettingsScreen = () => {
         </View>
       </View>
 
-      <View style={styles.back2}>
+      <Animated.View style={styles.back2}>
+        <View style={{alignSelf:'center', marginTop:scaleHeight(11)}}>
+        <PullBar width={scaleWidth(62.5)} height={scaleHeight(6)}/></View>
         <ScrollView contentContainerStyle={{
                     paddingBottom: 110
                   }}>
           {/* Profile Header */}
-          <View style={[styles.row1]}>
+           <TouchableOpacity onPress={() => router.push('/settings-info')}>
+          <View style={[styles.row1,{marginTop:scaleHeight(29)}]}>
             <View style={styles.row2}>
               <ProfilePic width={66} height={66} borderWidth={2} />
               <View style={styles.column1}>
@@ -200,6 +206,7 @@ const SettingsScreen = () => {
             </View>
             <Image source={require('../../assets/images/next.png')} style={styles.image1} />
           </View>
+          </TouchableOpacity>
 
           {/* Accounts */}
            
@@ -243,7 +250,7 @@ const SettingsScreen = () => {
             ))}
           </View>
         </ScrollView>
-      </View>
+      </Animated.View>
     </View>
   )
 }

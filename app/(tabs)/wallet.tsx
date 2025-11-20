@@ -5,7 +5,7 @@ import WalletScreen from '../../screens/tabs/WalletScreen'
 export default function wallet() {
   return (
     <View style={{ flex: 1 }}>
-      <WalletScreen />
+      <WalletScreen name="wallet" />
     </View>
   )
 }

@@ -35,6 +35,7 @@ export default function RootLayout() {
         <Stack.Screen name="user-account" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="(message)" options={{ headerShown: false }} />
+        <Stack.Screen name="settings-info" options={{ headerShown: false }} />
       </Stack>
     </GestureHandlerRootView>
   );
