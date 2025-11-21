@@ -83,7 +83,7 @@ const CallList = () => {
       tintColor: '#8E8E93'
     }
   })
-  
+
 
   const list = [
     {
@@ -192,31 +192,38 @@ const CallList = () => {
       category: 'incoming'
     }
   ]
+  const Messages = ({ name, type, date, image, category, index }: { name: string; type: string; date: string; image: any; category: string; index: number }) => {
+    return (
+
+      <React.Fragment key={index}>
+        <View style={styles.row1}>
+          <View style={styles.row2}>
+            <Image source={category === 'missed' ? require('../../assets/images/missedcall.png') : category === 'incoming' ? require('../../assets/images/incoming.png') : require('../../assets/images/outgoing.png')} style={[styles.icon, category === 'missed' && { width: scaleWidth(20), height: scaleWidth(15) }]} />
+            <Image source={image} style={styles.image} />
+            <View style={styles.column}>
+              <Text style={{ fontSize: 14, color: category === 'missed' ? 'red' : '#8E8E93' }}>{name}</Text>
+              <Text style={{ fontSize: 13, color: '#8E8E93' }}>{type}</Text>
+            </View>
+          </View>
+          <View style={styles.row3}>
+            <Text style={{ fontSize: 13, color: '#8E8E93' }}>{date}</Text>
+            <Image source={require('../../assets/images/Info.png')}
+              style={{ resizeMode: 'contain' }} />
+          </View>
+        </View>
+        <View style={styles.borderbottom} />
+      </React.Fragment>
+
+    );
+  };
 
   return (
     <ScrollView contentContainerStyle={{
       paddingBottom: 110
     }}>
-      <View style={{ marginTop: 27 }}>
+      <View style={{marginTop:scaleHeight(22)}}>
         {list.map((item, index) => (
-          <React.Fragment key={index}>
-            <View style={styles.row1}>
-              <View style={styles.row2}>
-                <Image source={item.category === 'missed' ? require('../../assets/images/missedcall.png') : item.category === 'incoming' ? require('../../assets/images/incoming.png') : require('../../assets/images/outgoing.png')} style={[styles.icon, item.category === 'missed' && {width: scaleWidth(20), height: scaleWidth(15)}]} />
-                <Image source={item.image} style={styles.image} />
-                <View style={styles.column}>
-                  <Text style={{ fontSize: 14, color: item.category === 'missed' ? 'red' : '#8E8E93' }}>{item.name}</Text>
-                  <Text style={{ fontSize: 13, color: '#8E8E93' }}>{item.type}</Text>
-                </View>
-              </View>
-              <View style={styles.row3}>
-                <Text style={{ fontSize: 13, color: '#8E8E93' }}>{item.date}</Text>
-                <Image source={require('../../assets/images/Info.png')}
-                  style={{ resizeMode: 'contain' }} />
-              </View>
-            </View>
-            <View style={styles.borderbottom} />
-          </React.Fragment>
+          <Messages key={index} name={item.name} type={item.type} date={item.date} image={item.image} category={item.category} index={index} />
         ))}
       </View>
     </ScrollView>
