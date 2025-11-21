@@ -1,13 +1,16 @@
-import { View, Text, Dimensions, BackHandler } from 'react-native'
-import React, { useState, useEffect } from 'react'
-import { useRouter } from 'expo-router'
+import CallList from '@/components/call/CallList'
+import CallTabs from '@/components/call/CallTabs'
 import BlackBackground from '@/components/main/black'
 import WhiteBackground from '@/components/main/white'
-import CallList from '@/components/call/CallList'
+import PullBar from '@/components/pullbar'
+import { useRouter } from 'expo-router'
+import { useEffect, useState } from 'react'
+import { BackHandler, Dimensions, Image, StyleSheet, Text, View } from 'react-native'
 
 const CallScreen = () => {
 
   const router = useRouter();
+  const [activeTab, setActiveTab] = useState("All");
 
   const [dimensions, setDimensions] = useState({
     width: Dimensions.get('window').width,
@@ -59,12 +62,43 @@ const CallScreen = () => {
     return () => backHandler.remove();
   }, []);
 
-
+   const styles = StyleSheet.create({
+     row1:{
+      flexDirection:'row',
+      alignItems:'center',
+      marginHorizontal:14,
+      justifyContent:'space-between',
+      marginTop:scaleHeight(73)
+     },
+     row2:{
+      flexDirection:'row',
+      gap:scaleWidth(12)
+     },
+     image:{
+      width:scaleWidth(19),
+      height:scaleHeight(19),
+      tintColor:'#D9FD00'
+     },
+     text:{
+      fontSize:16,
+      color:'#D9FD00'
+     }
+   })
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <BlackBackground>
+      <View style={styles.row1} >
+          <Text style={styles.text}>Edit</Text>
+          <CallTabs/>
+          <View style={styles.row2}>
+            <Image source={require('../../assets/images/telephone.png')} style={[styles.image,{resizeMode:'contain'}]}/>
+            <Image source={require('../../assets/images/plu.png')} style={[styles.image,{resizeMode:'contain'}]}/>
+          </View>
+          </View>
         <WhiteBackground height={scaleHeight(811)}>
+         <View style={{alignSelf:'center', marginTop:scaleHeight(11)}}>
+        <PullBar width={scaleWidth(62.5)} height={scaleHeight(6)}/></View>
           <CallList/>
         </WhiteBackground>
       </BlackBackground>

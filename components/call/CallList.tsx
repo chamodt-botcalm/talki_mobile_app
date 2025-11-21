@@ -50,17 +50,17 @@ const CallList = () => {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginHorizontal: 20,
-      paddingVertical: 6,
+      marginHorizontal: scaleWidth(20),
+      paddingVertical: scaleHeight(6),
     },
     row2: {
       flexDirection: 'row',
-      gap: 10,
+      gap: scaleWidth(10),
       alignItems: 'center',
     },
     row3: {
       flexDirection: 'row',
-      gap: 10,
+      gap: scaleWidth(10),
       alignItems: 'center',
     },
     column: {
@@ -69,7 +69,7 @@ const CallList = () => {
     borderbottom: {
       borderBottomColor: 'rgba(60, 60, 67, 0.29)',
       borderBottomWidth: 1,
-      marginHorizontal: 25,
+      marginHorizontal: scaleWidth(25),
     },
     image: {
       width: scaleWidth(40),
@@ -192,6 +192,8 @@ const CallList = () => {
       category: 'incoming'
     }
   ]
+  
+
   const Messages = ({ name, type, date, image, category, index }: { name: string; type: string; date: string; image: any; category: string; index: number }) => {
     return (
 

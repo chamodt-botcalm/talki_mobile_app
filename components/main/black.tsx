@@ -11,7 +11,8 @@ const BlackBackground = ({ children }: Props) => {
         background:{
             backgroundColor:'#232323',
             width:'100%',
-            height:'100%'
+            height:'100%',
+            flex: 1
         }
     })
   return (
