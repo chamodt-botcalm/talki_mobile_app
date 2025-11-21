@@ -142,23 +142,23 @@ const SettingsScreen = () => {
   });
 
   const accountOptions = [
-    { icon: require('../../assets/images/savedMessages.png'), title: 'Saved Messages', stylee: styles.borderbottom, mh: { marginHorizontal: 25 } },
-    { icon: require('../../assets/images/recentCalls.png'), title: 'Recent Calls', stylee: styles.borderbottom, mh: { marginHorizontal: 25 } },
-    { icon: require('../../assets/images/stickers.png'), title: 'Stickers' },
+    { icon: require('../../assets/images/savedMessages.png'), title: 'Saved Messages', stylee: styles.borderbottom, mh: { marginHorizontal: 25 }, link: '' },
+    { icon: require('../../assets/images/recentCalls.png'), title: 'Recent Calls', stylee: styles.borderbottom, mh: { marginHorizontal: 25 }, link: '' },
+    { icon: require('../../assets/images/stickers.png'), title: 'Stickers', link: '/sticker' },
   ];
 
   const settingsOptions = [
-    { icon: require('../../assets/images/notification.png'), title: 'Notifications and Sounds', stylee: styles.borderbottom, mh: { marginHorizontal: 25 } },
-    { icon: require('../../assets/images/privacy.png'), title: 'Privacy and Security', stylee: styles.borderbottom, mh: { marginHorizontal: 25 } },
-    { icon:require('../../assets/images/storage.png'), title: 'Data and Storage', stylee: styles.borderbottom, mh: { marginHorizontal: 25 } },
-    { icon: require('../../assets/images/appearance.png'), title: 'Appearance', stylee: styles.borderbottom, mh: { marginHorizontal: 25 } },
-    { icon: require('../../assets/images/language.png'), title: 'Language' },
+    { icon: require('../../assets/images/notification.png'), title: 'Notifications and Sounds', stylee: styles.borderbottom, mh: { marginHorizontal: 25 }, link: '' },
+    { icon: require('../../assets/images/privacy.png'), title: 'Privacy and Security', stylee: styles.borderbottom, mh: { marginHorizontal: 25 }, link: '' },
+    { icon: require('../../assets/images/storage.png'), title: 'Data and Storage', stylee: styles.borderbottom, mh: { marginHorizontal: 25 }, link: '' },
+    { icon: require('../../assets/images/appearance.png'), title: 'Appearance', stylee: styles.borderbottom, mh: { marginHorizontal: 25 }, link: '' },
+    { icon: require('../../assets/images/language.png'), title: 'Language', link: '' },
   ];
 
-  const MenuItem = ({ icon, title, stylee, mh }: { icon: any; title: string; stylee?: any; mh?: any }) => {
+  const MenuItem = ({ icon, title, stylee, mh, link }: { icon: any; title: string; stylee?: any; mh?: any; link?: string }) => {
     return (
       <View>
-        <TouchableOpacity style={[styles.row1]}>
+        <TouchableOpacity style={[styles.row1]} onPress={() => link && router.push(link as any)}>
           <View style={[styles.row2]}>
             <SettingsScreenIcon link={icon}/>
             <Text>{title}</Text>
@@ -236,7 +236,7 @@ const SettingsScreen = () => {
           {/* Menu Items */}
           <View style={[styles.column1,{ backgroundColor: '#F6F6F6'}, styles.bordertop, styles.borderbottom, { marginTop: 40 }]}>
             {accountOptions.map((item, index) => (
-              <MenuItem key={index} title={item.title} icon={item.icon} stylee={item.stylee} mh={item.mh} />
+              <MenuItem key={index} title={item.title} icon={item.icon} stylee={item.stylee} mh={item.mh} link={item.link} />
 
             ))}
           </View>
@@ -245,7 +245,7 @@ const SettingsScreen = () => {
 
           <View style={[styles.column1,{ backgroundColor: '#F6F6F6'}, styles.bordertop, styles.borderbottom, { marginTop: 40 }]}>
             {settingsOptions.map((item, index) => (
-              <MenuItem key={index} title={item.title} icon={item.icon} stylee={item.stylee} mh={item.mh} />
+              <MenuItem key={index} title={item.title} icon={item.icon} stylee={item.stylee} mh={item.mh} link={item.link} />
 
             ))}
           </View>
