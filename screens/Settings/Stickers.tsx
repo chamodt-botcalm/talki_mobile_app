@@ -1,6 +1,7 @@
 import BlackBackground from '@/components/main/black'
 import WhiteBackground from '@/components/main/white'
 import PullBar from '@/components/pullbar'
+import CustomSwitch from '@/components/Switch'
 import { useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { BackHandler, Dimensions, StyleSheet, Text, TouchableOpacity, View, Image, ScrollView, Pressable } from 'react-native'
@@ -175,7 +176,7 @@ const Stickers = () => {
                     <Text>{title1}</Text>
                     <View style={[styles.row2]}>
                         <Text style={[co, bg]}>{title2}</Text>
-                        <Icon name="chevron-forward-outline" size={20} style={{ color: '#AEAEB2' }} />
+                       <CustomSwitch/>
                     </View>
                 </TouchableOpacity>
                 <View style={[stylee, mh]} />
