@@ -6,17 +6,18 @@ export default function CustomSwitch() {
   const [isOn, setIsOn] = useState(true)
 
   return (
-    <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1, }}>
+   
       <Switch
         value={isOn}
         onValueChange={setIsOn}
         activeText={''}
         inActiveText={''}
-        backgroundActive={'#c7f000'}
+        backgroundActive={'#D9FD00'}
         circleBorderWidth={0}
-        barHeight={40}
+        circleSize={20}
+        barHeight={25}
         switchWidthMultiplier={2.5}
       />
-    </View>
+    
   )
 }

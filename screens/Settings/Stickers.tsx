@@ -169,14 +169,15 @@ const Stickers = () => {
         }
     ]
 
-    const MenuItem = ({ title1, title2, stylee, mh, link, bg, co }: { title1: string; title2: string; stylee?: any; mh?: any; link?: string, bg?: any, co?: any }) => {
+    const MenuItem = ({ title1, title2, stylee, mh, link, bg, co, isLast }: { title1: string; title2: string; stylee?: any; mh?: any; link?: string, bg?: any, co?: any, isLast?: boolean }) => {
         return (
             <View>
                 <TouchableOpacity style={[styles.row1]} onPress={() => link && router.push(link as any)}>
                     <Text>{title1}</Text>
                     <View style={[styles.row2]}>
                         <Text style={[co, bg]}>{title2}</Text>
-                       <CustomSwitch/>
+                        {!isLast&&<Icon name="chevron-forward-outline" size={20} style={{color:'#AEAEB2'}}/>}
+                       {isLast && <CustomSwitch/>}
                     </View>
                 </TouchableOpacity>
                 <View style={[stylee, mh]} />
@@ -225,7 +226,7 @@ const Stickers = () => {
                 </View>
                 <View style={[styles.column1, { backgroundColor: '#F6F6F6' }, { marginTop: 29 }]}>
                     {section1.map((item, index) => (
-                        <MenuItem key={index} title1={item.title1} title2={item.title2} stylee={item.stylee} mh={item.mh} link={item.link} bg={item.bg} co={item.co} />
+                        <MenuItem key={index} title1={item.title1} title2={item.title2} stylee={item.stylee} mh={item.mh} link={item.link} bg={item.bg} co={item.co} isLast={index === section1.length - 1} />
 
                     ))}
                 </View>
