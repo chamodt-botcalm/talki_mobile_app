@@ -37,6 +37,7 @@ export default function RootLayout() {
         <Stack.Screen name="(message)" options={{ headerShown: false }} />
         <Stack.Screen name="settings-info" options={{ headerShown: false }} />
         <Stack.Screen name="sticker" options={{ headerShown: false }} />
+         <Stack.Screen name="notifications" options={{ headerShown: false }} />
       </Stack>
     </GestureHandlerRootView>
   );

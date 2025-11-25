@@ -148,7 +148,7 @@ const SettingsScreen = () => {
   ];
 
   const settingsOptions = [
-    { icon: require('../../assets/images/notification.png'), title: 'Notifications and Sounds', stylee: styles.borderbottom, mh: { marginHorizontal: 25 }, link: '' },
+    { icon: require('../../assets/images/notification.png'), title: 'Notifications and Sounds', stylee: styles.borderbottom, mh: { marginHorizontal: 25 }, link: '/notifications' },
     { icon: require('../../assets/images/privacy.png'), title: 'Privacy and Security', stylee: styles.borderbottom, mh: { marginHorizontal: 25 }, link: '' },
     { icon: require('../../assets/images/storage.png'), title: 'Data and Storage', stylee: styles.borderbottom, mh: { marginHorizontal: 25 }, link: '' },
     { icon: require('../../assets/images/appearance.png'), title: 'Appearance', stylee: styles.borderbottom, mh: { marginHorizontal: 25 }, link: '' },
